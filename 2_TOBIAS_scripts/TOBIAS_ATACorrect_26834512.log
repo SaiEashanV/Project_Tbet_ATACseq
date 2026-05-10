@@ -1,0 +1,1735 @@
+Starting TOBIAS ATACorrect
+Sun May 10 00:58:08 MDT 2026
+Processing L_WT.merged
+# TOBIAS 0.17.3 ATACorrect (run started 2026-05-10 00:58:39.539256)
+# Working directory: /projects/svankamamidi@xsede.org/Project_Tbet_ATACseq/2_TOBIAS_scripts
+# Command line call: TOBIAS ATACorrect --bam /pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/L_WT.merged.bam --genome /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa --peaks /pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed --blacklist /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed --outdir /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged --cores 8
+
+# ----- Input parameters -----
+# bam:	/pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/L_WT.merged.bam
+# genome:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa
+# peaks:	/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed
+# regions_in:	None
+# regions_out:	None
+# blacklist:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed
+# extend:	100
+# split_strands:	False
+# norm_off:	False
+# track_off:	[]
+# drop_chroms:	['chrM', 'chrMT', 'M', 'MT', 'Mito']
+# k_flank:	12
+# read_shift:	[4, -5]
+# bg_shift:	100
+# window:	100
+# score_mat:	DWM
+# bias_pkl:	None
+# prefix:	L_WT.merged
+# outdir:	/pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged
+# cores:	8
+# split:	100
+# verbosity:	3
+
+
+# ----- Output files -----
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_uncorrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_bias.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_expected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_corrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_atacorrect.pdf
+
+
+2026-05-10 00:58:39 (2806836) [INFO]	----- Processing input data -----
+2026-05-10 00:58:39 (2806836) [INFO]	Reading info from .bam file
+2026-05-10 00:58:39 (2806836) [INFO]	Reading info from .fasta file
+2026-05-10 00:58:39 (2806836) [WARNING]	No additional chromosomes were removed. Consider using '--drop-chroms' to remove mitochondrial and/or other unwanted contigs.
+2026-05-10 00:58:39 (2806836) [INFO]	Processing input/output regions
+2026-05-10 00:58:46 (2806836) [STATS]	genome: 65 regions | 2730855475 bp | 100.00% coverage
+2026-05-10 00:58:47 (2806836) [STATS]	input_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 00:58:47 (2806836) [STATS]	output_regions: 145146 regions | 301639521 bp | 11.05% coverage
+2026-05-10 00:58:47 (2806836) [STATS]	peak_regions: 168236 regions | 269019900 bp | 9.85% coverage
+2026-05-10 00:58:47 (2806836) [STATS]	nonpeak_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 00:58:47 (2806836) [STATS]	blacklist_regions: 3435 regions | 238977200 bp | 8.75% coverage
+
+2026-05-10 00:58:47 (2806836) [INFO]	----- Estimating normalization factors -----
+2026-05-10 00:58:47 (2806836) [INFO]	Counting reads in peak regions
+2026-05-10 00:58:47 (2806836) [INFO]	Progress: 0%
+2026-05-10 00:58:56 (2806836) [INFO]	Progress: 2%
+2026-05-10 00:58:57 (2806836) [INFO]	Progress: 4%
+2026-05-10 00:58:58 (2806836) [INFO]	Progress: 5%
+2026-05-10 00:58:58 (2806836) [INFO]	Progress: 6%
+2026-05-10 00:58:59 (2806836) [INFO]	Progress: 7%
+2026-05-10 00:58:59 (2806836) [INFO]	Progress: 8%
+2026-05-10 00:59:08 (2806836) [INFO]	Progress: 9%
+2026-05-10 00:59:08 (2806836) [INFO]	Progress: 10%
+2026-05-10 00:59:10 (2806836) [INFO]	Progress: 12%
+2026-05-10 00:59:11 (2806836) [INFO]	Progress: 13%
+2026-05-10 00:59:11 (2806836) [INFO]	Progress: 15%
+2026-05-10 00:59:14 (2806836) [INFO]	Progress: 16%
+2026-05-10 00:59:18 (2806836) [INFO]	Progress: 17%
+2026-05-10 00:59:20 (2806836) [INFO]	Progress: 19%
+2026-05-10 00:59:22 (2806836) [INFO]	Progress: 20%
+2026-05-10 00:59:23 (2806836) [INFO]	Progress: 21%
+2026-05-10 00:59:23 (2806836) [INFO]	Progress: 22%
+2026-05-10 00:59:24 (2806836) [INFO]	Progress: 23%
+2026-05-10 00:59:24 (2806836) [INFO]	Progress: 24%
+2026-05-10 00:59:30 (2806836) [INFO]	Progress: 25%
+2026-05-10 00:59:30 (2806836) [INFO]	Progress: 26%
+2026-05-10 00:59:31 (2806836) [INFO]	Progress: 27%
+2026-05-10 00:59:32 (2806836) [INFO]	Progress: 28%
+2026-05-10 00:59:33 (2806836) [INFO]	Progress: 29%
+2026-05-10 00:59:35 (2806836) [INFO]	Progress: 31%
+2026-05-10 00:59:35 (2806836) [INFO]	Progress: 32%
+2026-05-10 00:59:37 (2806836) [INFO]	Progress: 33%
+2026-05-10 00:59:41 (2806836) [INFO]	Progress: 34%
+2026-05-10 00:59:43 (2806836) [INFO]	Progress: 35%
+2026-05-10 00:59:45 (2806836) [INFO]	Progress: 36%
+2026-05-10 00:59:45 (2806836) [INFO]	Progress: 39%
+2026-05-10 00:59:46 (2806836) [INFO]	Progress: 40%
+2026-05-10 00:59:47 (2806836) [INFO]	Progress: 41%
+2026-05-10 00:59:52 (2806836) [INFO]	Progress: 42%
+2026-05-10 00:59:54 (2806836) [INFO]	Progress: 43%
+2026-05-10 00:59:55 (2806836) [INFO]	Progress: 44%
+2026-05-10 00:59:56 (2806836) [INFO]	Progress: 45%
+2026-05-10 00:59:56 (2806836) [INFO]	Progress: 46%
+2026-05-10 00:59:57 (2806836) [INFO]	Progress: 47%
+2026-05-10 01:00:00 (2806836) [INFO]	Progress: 48%
+2026-05-10 01:00:01 (2806836) [INFO]	Progress: 49%
+2026-05-10 01:00:04 (2806836) [INFO]	Progress: 51%
+2026-05-10 01:00:06 (2806836) [INFO]	Progress: 52%
+2026-05-10 01:00:07 (2806836) [INFO]	Progress: 54%
+2026-05-10 01:00:07 (2806836) [INFO]	Progress: 55%
+2026-05-10 01:00:11 (2806836) [INFO]	Progress: 56%
+2026-05-10 01:00:11 (2806836) [INFO]	Progress: 57%
+2026-05-10 01:00:13 (2806836) [INFO]	Progress: 58%
+2026-05-10 01:00:16 (2806836) [INFO]	Progress: 59%
+2026-05-10 01:00:17 (2806836) [INFO]	Progress: 60%
+2026-05-10 01:00:18 (2806836) [INFO]	Progress: 62%
+2026-05-10 01:00:19 (2806836) [INFO]	Progress: 63%
+2026-05-10 01:00:22 (2806836) [INFO]	Progress: 64%
+2026-05-10 01:00:22 (2806836) [INFO]	Progress: 65%
+2026-05-10 01:00:25 (2806836) [INFO]	Progress: 66%
+2026-05-10 01:00:26 (2806836) [INFO]	Progress: 67%
+2026-05-10 01:00:27 (2806836) [INFO]	Progress: 68%
+2026-05-10 01:00:29 (2806836) [INFO]	Progress: 70%
+2026-05-10 01:00:31 (2806836) [INFO]	Progress: 71%
+2026-05-10 01:00:32 (2806836) [INFO]	Progress: 72%
+2026-05-10 01:00:33 (2806836) [INFO]	Progress: 73%
+2026-05-10 01:00:36 (2806836) [INFO]	Progress: 74%
+2026-05-10 01:00:36 (2806836) [INFO]	Progress: 75%
+2026-05-10 01:00:39 (2806836) [INFO]	Progress: 77%
+2026-05-10 01:00:40 (2806836) [INFO]	Progress: 78%
+2026-05-10 01:00:41 (2806836) [INFO]	Progress: 79%
+2026-05-10 01:00:44 (2806836) [INFO]	Progress: 80%
+2026-05-10 01:00:46 (2806836) [INFO]	Progress: 81%
+2026-05-10 01:00:47 (2806836) [INFO]	Progress: 82%
+2026-05-10 01:00:49 (2806836) [INFO]	Progress: 83%
+2026-05-10 01:00:51 (2806836) [INFO]	Progress: 84%
+2026-05-10 01:00:53 (2806836) [INFO]	Progress: 85%
+2026-05-10 01:00:54 (2806836) [INFO]	Progress: 86%
+2026-05-10 01:00:55 (2806836) [INFO]	Progress: 88%
+2026-05-10 01:00:56 (2806836) [INFO]	Progress: 89%
+2026-05-10 01:00:58 (2806836) [INFO]	Progress: 90%
+2026-05-10 01:01:02 (2806836) [INFO]	Progress: 91%
+2026-05-10 01:01:03 (2806836) [INFO]	Progress: 92%
+2026-05-10 01:01:04 (2806836) [INFO]	Progress: 93%
+2026-05-10 01:01:05 (2806836) [INFO]	Progress: 94%
+2026-05-10 01:01:06 (2806836) [INFO]	Progress: 96%
+2026-05-10 01:01:07 (2806836) [INFO]	Progress: 97%
+2026-05-10 01:01:07 (2806836) [INFO]	Progress: 98%
+2026-05-10 01:01:10 (2806836) [INFO]	Progress: 99%
+2026-05-10 01:01:12 (2806836) [INFO]	Progress: 100%
+
+2026-05-10 01:01:12 (2806836) [INFO]	Counting reads in nonpeak regions
+2026-05-10 01:01:13 (2806836) [INFO]	Progress: 0%
+2026-05-10 01:01:16 (2806836) [INFO]	Progress: 3%
+2026-05-10 01:01:17 (2806836) [INFO]	Progress: 8%
+2026-05-10 01:01:19 (2806836) [INFO]	Progress: 11%
+2026-05-10 01:01:20 (2806836) [INFO]	Progress: 15%
+2026-05-10 01:01:20 (2806836) [INFO]	Progress: 16%
+2026-05-10 01:01:22 (2806836) [INFO]	Progress: 19%
+2026-05-10 01:01:23 (2806836) [INFO]	Progress: 20%
+2026-05-10 01:01:23 (2806836) [INFO]	Progress: 24%
+2026-05-10 01:01:25 (2806836) [INFO]	Progress: 26%
+2026-05-10 01:01:26 (2806836) [INFO]	Progress: 28%
+2026-05-10 01:01:27 (2806836) [INFO]	Progress: 31%
+2026-05-10 01:01:27 (2806836) [INFO]	Progress: 32%
+2026-05-10 01:01:28 (2806836) [INFO]	Progress: 34%
+2026-05-10 01:01:29 (2806836) [INFO]	Progress: 35%
+2026-05-10 01:01:29 (2806836) [INFO]	Progress: 37%
+2026-05-10 01:01:30 (2806836) [INFO]	Progress: 38%
+2026-05-10 01:01:30 (2806836) [INFO]	Progress: 39%
+2026-05-10 01:01:31 (2806836) [INFO]	Progress: 40%
+2026-05-10 01:01:31 (2806836) [INFO]	Progress: 42%
+2026-05-10 01:01:32 (2806836) [INFO]	Progress: 43%
+2026-05-10 01:01:33 (2806836) [INFO]	Progress: 44%
+2026-05-10 01:01:33 (2806836) [INFO]	Progress: 47%
+2026-05-10 01:01:34 (2806836) [INFO]	Progress: 48%
+2026-05-10 01:01:34 (2806836) [INFO]	Progress: 49%
+2026-05-10 01:01:34 (2806836) [INFO]	Progress: 50%
+2026-05-10 01:01:35 (2806836) [INFO]	Progress: 51%
+2026-05-10 01:01:36 (2806836) [INFO]	Progress: 52%
+2026-05-10 01:01:36 (2806836) [INFO]	Progress: 53%
+2026-05-10 01:01:37 (2806836) [INFO]	Progress: 55%
+2026-05-10 01:01:37 (2806836) [INFO]	Progress: 57%
+2026-05-10 01:01:38 (2806836) [INFO]	Progress: 58%
+2026-05-10 01:01:38 (2806836) [INFO]	Progress: 59%
+2026-05-10 01:01:39 (2806836) [INFO]	Progress: 61%
+2026-05-10 01:01:40 (2806836) [INFO]	Progress: 64%
+2026-05-10 01:01:41 (2806836) [INFO]	Progress: 65%
+2026-05-10 01:01:41 (2806836) [INFO]	Progress: 66%
+2026-05-10 01:01:42 (2806836) [INFO]	Progress: 68%
+2026-05-10 01:01:42 (2806836) [INFO]	Progress: 69%
+2026-05-10 01:01:43 (2806836) [INFO]	Progress: 70%
+2026-05-10 01:01:44 (2806836) [INFO]	Progress: 72%
+2026-05-10 01:01:44 (2806836) [INFO]	Progress: 74%
+2026-05-10 01:01:45 (2806836) [INFO]	Progress: 75%
+2026-05-10 01:01:45 (2806836) [INFO]	Progress: 77%
+2026-05-10 01:01:47 (2806836) [INFO]	Progress: 79%
+2026-05-10 01:01:47 (2806836) [INFO]	Progress: 83%
+2026-05-10 01:01:48 (2806836) [INFO]	Progress: 84%
+2026-05-10 01:01:49 (2806836) [INFO]	Progress: 85%
+2026-05-10 01:01:50 (2806836) [INFO]	Progress: 86%
+2026-05-10 01:01:50 (2806836) [INFO]	Progress: 87%
+2026-05-10 01:01:51 (2806836) [INFO]	Progress: 90%
+2026-05-10 01:01:51 (2806836) [INFO]	Progress: 92%
+2026-05-10 01:01:52 (2806836) [INFO]	Progress: 93%
+2026-05-10 01:01:53 (2806836) [INFO]	Progress: 95%
+2026-05-10 01:01:54 (2806836) [INFO]	Progress: 97%
+2026-05-10 01:01:54 (2806836) [INFO]	Progress: 98%
+2026-05-10 01:01:55 (2806836) [INFO]	Progress: 100%
+2026-05-10 01:01:55 (2806836) [STATS]	TOTAL_READS	97274492
+2026-05-10 01:01:55 (2806836) [STATS]	PEAK_READS	72924500
+2026-05-10 01:01:55 (2806836) [STATS]	NONPEAK_READS	24349992
+2026-05-10 01:01:55 (2806836) [STATS]	LIB_NORM	0.10280
+2026-05-10 01:01:55 (2806836) [STATS]	FRiP	0.74968
+2026-05-10 01:01:55 (2806836) [STATS]	CORRECTION_FACTOR:	0.13713
+
+2026-05-10 01:01:55 (2806836) [INFO]	Started estimation of sequence bias...
+2026-05-10 01:01:55 (2806836) [INFO]	Progress: 0%
+2026-05-10 01:02:00 (2806836) [INFO]	Progress: 2%
+2026-05-10 01:02:01 (2806836) [INFO]	Progress: 5%
+2026-05-10 01:02:01 (2806836) [INFO]	Progress: 8%
+2026-05-10 01:02:05 (2806836) [INFO]	Progress: 9%
+2026-05-10 01:02:05 (2806836) [INFO]	Progress: 10%
+2026-05-10 01:02:06 (2806836) [INFO]	Progress: 13%
+2026-05-10 01:02:06 (2806836) [INFO]	Progress: 15%
+2026-05-10 01:02:07 (2806836) [INFO]	Progress: 16%
+2026-05-10 01:02:09 (2806836) [INFO]	Progress: 19%
+2026-05-10 01:02:11 (2806836) [INFO]	Progress: 21%
+2026-05-10 01:02:11 (2806836) [INFO]	Progress: 22%
+2026-05-10 01:02:12 (2806836) [INFO]	Progress: 23%
+2026-05-10 01:02:12 (2806836) [INFO]	Progress: 24%
+2026-05-10 01:02:14 (2806836) [INFO]	Progress: 25%
+2026-05-10 01:02:15 (2806836) [INFO]	Progress: 26%
+2026-05-10 01:02:16 (2806836) [INFO]	Progress: 27%
+2026-05-10 01:02:16 (2806836) [INFO]	Progress: 28%
+2026-05-10 01:02:17 (2806836) [INFO]	Progress: 29%
+2026-05-10 01:02:17 (2806836) [INFO]	Progress: 30%
+2026-05-10 01:02:18 (2806836) [INFO]	Progress: 32%
+2026-05-10 01:02:19 (2806836) [INFO]	Progress: 33%
+2026-05-10 01:02:20 (2806836) [INFO]	Progress: 34%
+2026-05-10 01:02:21 (2806836) [INFO]	Progress: 37%
+2026-05-10 01:02:22 (2806836) [INFO]	Progress: 38%
+2026-05-10 01:02:24 (2806836) [INFO]	Progress: 40%
+2026-05-10 01:02:24 (2806836) [INFO]	Progress: 42%
+2026-05-10 01:02:26 (2806836) [INFO]	Progress: 43%
+2026-05-10 01:02:26 (2806836) [INFO]	Progress: 44%
+2026-05-10 01:02:27 (2806836) [INFO]	Progress: 45%
+2026-05-10 01:02:27 (2806836) [INFO]	Progress: 46%
+2026-05-10 01:02:28 (2806836) [INFO]	Progress: 48%
+2026-05-10 01:02:29 (2806836) [INFO]	Progress: 49%
+2026-05-10 01:02:29 (2806836) [INFO]	Progress: 50%
+2026-05-10 01:02:31 (2806836) [INFO]	Progress: 52%
+2026-05-10 01:02:32 (2806836) [INFO]	Progress: 53%
+2026-05-10 01:02:33 (2806836) [INFO]	Progress: 54%
+2026-05-10 01:02:34 (2806836) [INFO]	Progress: 55%
+2026-05-10 01:02:34 (2806836) [INFO]	Progress: 57%
+2026-05-10 01:02:35 (2806836) [INFO]	Progress: 58%
+2026-05-10 01:02:36 (2806836) [INFO]	Progress: 59%
+2026-05-10 01:02:37 (2806836) [INFO]	Progress: 60%
+2026-05-10 01:02:37 (2806836) [INFO]	Progress: 61%
+2026-05-10 01:02:38 (2806836) [INFO]	Progress: 62%
+2026-05-10 01:02:39 (2806836) [INFO]	Progress: 63%
+2026-05-10 01:02:40 (2806836) [INFO]	Progress: 64%
+2026-05-10 01:02:40 (2806836) [INFO]	Progress: 65%
+2026-05-10 01:02:41 (2806836) [INFO]	Progress: 66%
+2026-05-10 01:02:41 (2806836) [INFO]	Progress: 68%
+2026-05-10 01:02:42 (2806836) [INFO]	Progress: 69%
+2026-05-10 01:02:43 (2806836) [INFO]	Progress: 70%
+2026-05-10 01:02:44 (2806836) [INFO]	Progress: 71%
+2026-05-10 01:02:45 (2806836) [INFO]	Progress: 72%
+2026-05-10 01:02:46 (2806836) [INFO]	Progress: 73%
+2026-05-10 01:02:46 (2806836) [INFO]	Progress: 75%
+2026-05-10 01:02:47 (2806836) [INFO]	Progress: 76%
+2026-05-10 01:02:47 (2806836) [INFO]	Progress: 77%
+2026-05-10 01:02:48 (2806836) [INFO]	Progress: 78%
+2026-05-10 01:02:50 (2806836) [INFO]	Progress: 79%
+2026-05-10 01:02:50 (2806836) [INFO]	Progress: 80%
+2026-05-10 01:02:51 (2806836) [INFO]	Progress: 82%
+2026-05-10 01:02:51 (2806836) [INFO]	Progress: 83%
+2026-05-10 01:02:52 (2806836) [INFO]	Progress: 84%
+2026-05-10 01:02:53 (2806836) [INFO]	Progress: 86%
+2026-05-10 01:02:55 (2806836) [INFO]	Progress: 87%
+2026-05-10 01:02:56 (2806836) [INFO]	Progress: 90%
+2026-05-10 01:02:57 (2806836) [INFO]	Progress: 91%
+2026-05-10 01:02:57 (2806836) [INFO]	Progress: 92%
+2026-05-10 01:02:58 (2806836) [INFO]	Progress: 93%
+2026-05-10 01:02:58 (2806836) [INFO]	Progress: 94%
+2026-05-10 01:02:59 (2806836) [INFO]	Progress: 95%
+2026-05-10 01:03:01 (2806836) [INFO]	Progress: 96%
+2026-05-10 01:03:02 (2806836) [INFO]	Progress: 97%
+2026-05-10 01:03:03 (2806836) [INFO]	Progress: 98%
+2026-05-10 01:03:04 (2806836) [INFO]	Progress: 100%
+2026-05-10 01:03:04 (2806836) [INFO]	Finalizing bias motif for scoring
+
+2026-05-10 01:03:04 (2806836) [INFO]	----- Correcting reads from .bam within output regions -----
+2026-05-10 01:03:05 (2806836) [INFO]	Correction progress: 0%
+2026-05-10 01:08:54 (2806836) [INFO]	Correction progress: 1.0%
+2026-05-10 01:09:02 (2806836) [INFO]	Correction progress: 2.0%
+2026-05-10 01:09:07 (2806836) [INFO]	Correction progress: 3.0%
+2026-05-10 01:09:12 (2806836) [INFO]	Correction progress: 4.0%
+2026-05-10 01:09:19 (2806836) [INFO]	Correction progress: 5.0%
+2026-05-10 01:09:25 (2806836) [INFO]	Correction progress: 6.0%
+2026-05-10 01:09:35 (2806836) [INFO]	Correction progress: 7.0%
+2026-05-10 01:14:25 (2806836) [INFO]	Correction progress: 8.0%
+2026-05-10 01:15:34 (2806836) [INFO]	Correction progress: 9.0%
+2026-05-10 01:16:05 (2806836) [INFO]	Correction progress: 10.0%
+2026-05-10 01:16:20 (2806836) [INFO]	Correction progress: 11.0%
+2026-05-10 01:16:41 (2806836) [INFO]	Correction progress: 12.0%
+2026-05-10 01:16:48 (2806836) [INFO]	Correction progress: 13.0%
+2026-05-10 01:17:31 (2806836) [INFO]	Correction progress: 14.0%
+2026-05-10 01:21:22 (2806836) [INFO]	Correction progress: 15.0%
+2026-05-10 01:22:37 (2806836) [INFO]	Correction progress: 16.0%
+2026-05-10 01:22:52 (2806836) [INFO]	Correction progress: 17.0%
+2026-05-10 01:23:00 (2806836) [INFO]	Correction progress: 18.0%
+2026-05-10 01:23:19 (2806836) [INFO]	Correction progress: 19.0%
+2026-05-10 01:24:15 (2806836) [INFO]	Correction progress: 20.0%
+2026-05-10 01:24:43 (2806836) [INFO]	Correction progress: 21.0%
+2026-05-10 01:27:39 (2806836) [INFO]	Correction progress: 22.0%
+2026-05-10 01:29:04 (2806836) [INFO]	Correction progress: 23.0%
+2026-05-10 01:29:50 (2806836) [INFO]	Correction progress: 24.0%
+2026-05-10 01:29:53 (2806836) [INFO]	Correction progress: 25.0%
+2026-05-10 01:29:54 (2806836) [INFO]	Correction progress: 26.0%
+2026-05-10 01:30:03 (2806836) [INFO]	Correction progress: 27.0%
+2026-05-10 01:30:55 (2806836) [INFO]	Correction progress: 28.0%
+2026-05-10 01:32:59 (2806836) [INFO]	Correction progress: 29.0%
+2026-05-10 01:35:48 (2806836) [INFO]	Correction progress: 30.0%
+2026-05-10 01:36:04 (2806836) [INFO]	Correction progress: 31.0%
+2026-05-10 01:36:05 (2806836) [INFO]	Correction progress: 32.0%
+2026-05-10 01:36:06 (2806836) [INFO]	Correction progress: 33.0%
+2026-05-10 01:36:18 (2806836) [INFO]	Correction progress: 34.0%
+2026-05-10 01:38:47 (2806836) [INFO]	Correction progress: 35.0%
+2026-05-10 01:39:37 (2806836) [INFO]	Correction progress: 36.0%
+2026-05-10 01:42:01 (2806836) [INFO]	Correction progress: 37.0%
+2026-05-10 01:42:15 (2806836) [INFO]	Correction progress: 38.0%
+2026-05-10 01:42:21 (2806836) [INFO]	Correction progress: 39.0%
+2026-05-10 01:42:55 (2806836) [INFO]	Correction progress: 40.0%
+2026-05-10 01:43:43 (2806836) [INFO]	Correction progress: 41.0%
+2026-05-10 01:46:09 (2806836) [INFO]	Correction progress: 42.0%
+2026-05-10 01:47:59 (2806836) [INFO]	Correction progress: 43.0%
+2026-05-10 01:48:08 (2806836) [INFO]	Correction progress: 44.0%
+2026-05-10 01:48:09 (2806836) [INFO]	Correction progress: 45.0%
+2026-05-10 01:48:54 (2806836) [INFO]	Correction progress: 46.0%
+2026-05-10 01:49:21 (2806836) [INFO]	Correction progress: 47.0%
+2026-05-10 01:49:34 (2806836) [INFO]	Correction progress: 48.0%
+2026-05-10 01:53:58 (2806836) [INFO]	Correction progress: 49.0%
+2026-05-10 01:54:08 (2806836) [INFO]	Correction progress: 50.0%
+2026-05-10 01:55:10 (2806836) [INFO]	Correction progress: 51.0%
+2026-05-10 01:55:15 (2806836) [INFO]	Correction progress: 52.0%
+2026-05-10 01:55:26 (2806836) [INFO]	Correction progress: 53.0%
+2026-05-10 01:55:34 (2806836) [INFO]	Correction progress: 54.0%
+2026-05-10 01:56:21 (2806836) [INFO]	Correction progress: 55.0%
+2026-05-10 01:59:47 (2806836) [INFO]	Correction progress: 56.0%
+2026-05-10 02:00:28 (2806836) [INFO]	Correction progress: 57.0%
+2026-05-10 02:01:17 (2806836) [INFO]	Correction progress: 58.0%
+2026-05-10 02:01:20 (2806836) [INFO]	Correction progress: 59.0%
+2026-05-10 02:01:46 (2806836) [INFO]	Correction progress: 60.0%
+2026-05-10 02:03:16 (2806836) [INFO]	Correction progress: 61.0%
+2026-05-10 02:04:04 (2806836) [INFO]	Correction progress: 62.0%
+2026-05-10 02:05:57 (2806836) [INFO]	Correction progress: 63.0%
+2026-05-10 02:06:12 (2806836) [INFO]	Correction progress: 64.0%
+2026-05-10 02:07:29 (2806836) [INFO]	Correction progress: 65.0%
+2026-05-10 02:07:36 (2806836) [INFO]	Correction progress: 66.0%
+2026-05-10 02:09:17 (2806836) [INFO]	Correction progress: 67.0%
+2026-05-10 02:10:06 (2806836) [INFO]	Correction progress: 68.0%
+2026-05-10 02:12:09 (2806836) [INFO]	Correction progress: 69.0%
+2026-05-10 02:12:16 (2806836) [INFO]	Correction progress: 70.0%
+2026-05-10 02:12:35 (2806836) [INFO]	Correction progress: 71.0%
+2026-05-10 02:13:10 (2806836) [INFO]	Correction progress: 72.0%
+2026-05-10 02:13:34 (2806836) [INFO]	Correction progress: 73.0%
+2026-05-10 02:15:46 (2806836) [INFO]	Correction progress: 74.0%
+2026-05-10 02:18:01 (2806836) [INFO]	Correction progress: 75.0%
+2026-05-10 02:18:02 (2806836) [INFO]	Correction progress: 76.0%
+2026-05-10 02:18:39 (2806836) [INFO]	Correction progress: 77.0%
+2026-05-10 02:18:41 (2806836) [INFO]	Correction progress: 78.0%
+2026-05-10 02:19:17 (2806836) [INFO]	Correction progress: 79.0%
+2026-05-10 02:21:03 (2806836) [INFO]	Correction progress: 80.0%
+2026-05-10 02:22:36 (2806836) [INFO]	Correction progress: 81.0%
+2026-05-10 02:24:25 (2806836) [INFO]	Correction progress: 82.0%
+2026-05-10 02:25:35 (2806836) [INFO]	Correction progress: 83.0%
+2026-05-10 02:25:45 (2806836) [INFO]	Correction progress: 84.0%
+2026-05-10 02:26:08 (2806836) [INFO]	Correction progress: 85.0%
+2026-05-10 02:27:04 (2806836) [INFO]	Correction progress: 86.0%
+2026-05-10 02:28:06 (2806836) [INFO]	Correction progress: 87.0%
+2026-05-10 02:28:45 (2806836) [INFO]	Correction progress: 88.0%
+2026-05-10 02:30:29 (2806836) [INFO]	Correction progress: 89.0%
+2026-05-10 02:32:28 (2806836) [INFO]	Correction progress: 90.0%
+2026-05-10 02:32:52 (2806836) [INFO]	Correction progress: 91.0%
+2026-05-10 02:33:22 (2806836) [INFO]	Correction progress: 92.0%
+2026-05-10 02:34:14 (2806836) [INFO]	Correction progress: 93.0%
+2026-05-10 02:35:09 (2806836) [INFO]	Correction progress: 94.0%
+2026-05-10 02:35:34 (2806836) [INFO]	Correction progress: 95.0%
+2026-05-10 02:36:35 (2806836) [INFO]	Correction progress: 96.0%
+2026-05-10 02:38:08 (2806836) [INFO]	Correction progress: 97.0%
+2026-05-10 02:38:38 (2806836) [INFO]	Correction progress: 98.0%
+2026-05-10 02:38:42 (2806836) [INFO]	Correction progress: 99.0%
+2026-05-10 02:38:57 (2808581) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_uncorrected.bw (this might take some time)
+2026-05-10 02:38:57 (2806836) [INFO]	Correction progress: 100.0%
+2026-05-10 02:38:57 (2806836) [INFO]	Correction progress: done!
+2026-05-10 02:39:15 (2808581) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_bias.bw (this might take some time)
+2026-05-10 02:40:56 (2808581) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_expected.bw (this might take some time)
+2026-05-10 02:42:13 (2808581) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_WT.merged/L_WT.merged_corrected.bw (this might take some time)
+
+2026-05-10 02:43:31 (2806836) [INFO]	Verifying bias correction
+2026-05-10 02:43:31 (2806836) [STATS]	BIAS	pre-bias variance forward:	0.0041739
+2026-05-10 02:43:31 (2806836) [STATS]	BIAS	post-bias variance forward:	0.0000431
+2026-05-10 02:43:31 (2806836) [STATS]	BIAS	pre-bias variance reverse:	0.0041718
+2026-05-10 02:43:31 (2806836) [STATS]	BIAS	post-bias variance reverse:	0.0000429
+
+2026-05-10 02:43:31 (2806836) [INFO]	Finished ATACorrect run (total time elapsed: 1:44:52.350347)
+Processing L_KO.merged
+# TOBIAS 0.17.3 ATACorrect (run started 2026-05-10 02:43:46.770196)
+# Working directory: /projects/svankamamidi@xsede.org/Project_Tbet_ATACseq/2_TOBIAS_scripts
+# Command line call: TOBIAS ATACorrect --bam /pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/L_KO.merged.bam --genome /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa --peaks /pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed --blacklist /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed --outdir /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged --cores 8
+
+# ----- Input parameters -----
+# bam:	/pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/L_KO.merged.bam
+# genome:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa
+# peaks:	/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed
+# regions_in:	None
+# regions_out:	None
+# blacklist:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed
+# extend:	100
+# split_strands:	False
+# norm_off:	False
+# track_off:	[]
+# drop_chroms:	['chrM', 'chrMT', 'M', 'MT', 'Mito']
+# k_flank:	12
+# read_shift:	[4, -5]
+# bg_shift:	100
+# window:	100
+# score_mat:	DWM
+# bias_pkl:	None
+# prefix:	L_KO.merged
+# outdir:	/pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged
+# cores:	8
+# split:	100
+# verbosity:	3
+
+
+# ----- Output files -----
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_uncorrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_bias.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_expected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_corrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_atacorrect.pdf
+
+
+2026-05-10 02:43:46 (2829434) [INFO]	----- Processing input data -----
+2026-05-10 02:43:46 (2829434) [INFO]	Reading info from .bam file
+2026-05-10 02:43:46 (2829434) [INFO]	Reading info from .fasta file
+2026-05-10 02:43:46 (2829434) [WARNING]	No additional chromosomes were removed. Consider using '--drop-chroms' to remove mitochondrial and/or other unwanted contigs.
+2026-05-10 02:43:46 (2829434) [INFO]	Processing input/output regions
+2026-05-10 02:43:54 (2829434) [STATS]	genome: 65 regions | 2730855475 bp | 100.00% coverage
+2026-05-10 02:43:54 (2829434) [STATS]	input_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 02:43:54 (2829434) [STATS]	output_regions: 145146 regions | 301639521 bp | 11.05% coverage
+2026-05-10 02:43:54 (2829434) [STATS]	peak_regions: 168236 regions | 269019900 bp | 9.85% coverage
+2026-05-10 02:43:54 (2829434) [STATS]	nonpeak_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 02:43:54 (2829434) [STATS]	blacklist_regions: 3435 regions | 238977200 bp | 8.75% coverage
+
+2026-05-10 02:43:54 (2829434) [INFO]	----- Estimating normalization factors -----
+2026-05-10 02:43:54 (2829434) [INFO]	Counting reads in peak regions
+2026-05-10 02:43:54 (2829434) [INFO]	Progress: 0%
+2026-05-10 02:44:04 (2829434) [INFO]	Progress: 1%
+2026-05-10 02:44:07 (2829434) [INFO]	Progress: 2%
+2026-05-10 02:44:08 (2829434) [INFO]	Progress: 3%
+2026-05-10 02:44:09 (2829434) [INFO]	Progress: 5%
+2026-05-10 02:44:09 (2829434) [INFO]	Progress: 7%
+2026-05-10 02:44:10 (2829434) [INFO]	Progress: 8%
+2026-05-10 02:44:20 (2829434) [INFO]	Progress: 9%
+2026-05-10 02:44:22 (2829434) [INFO]	Progress: 10%
+2026-05-10 02:44:24 (2829434) [INFO]	Progress: 11%
+2026-05-10 02:44:25 (2829434) [INFO]	Progress: 13%
+2026-05-10 02:44:26 (2829434) [INFO]	Progress: 15%
+2026-05-10 02:44:30 (2829434) [INFO]	Progress: 16%
+2026-05-10 02:44:36 (2829434) [INFO]	Progress: 17%
+2026-05-10 02:44:38 (2829434) [INFO]	Progress: 18%
+2026-05-10 02:44:38 (2829434) [INFO]	Progress: 19%
+2026-05-10 02:44:39 (2829434) [INFO]	Progress: 20%
+2026-05-10 02:44:41 (2829434) [INFO]	Progress: 21%
+2026-05-10 02:44:41 (2829434) [INFO]	Progress: 22%
+2026-05-10 02:44:44 (2829434) [INFO]	Progress: 23%
+2026-05-10 02:44:44 (2829434) [INFO]	Progress: 24%
+2026-05-10 02:44:50 (2829434) [INFO]	Progress: 25%
+2026-05-10 02:44:52 (2829434) [INFO]	Progress: 26%
+2026-05-10 02:44:52 (2829434) [INFO]	Progress: 27%
+2026-05-10 02:44:53 (2829434) [INFO]	Progress: 28%
+2026-05-10 02:44:55 (2829434) [INFO]	Progress: 29%
+2026-05-10 02:44:56 (2829434) [INFO]	Progress: 30%
+2026-05-10 02:44:59 (2829434) [INFO]	Progress: 32%
+2026-05-10 02:45:02 (2829434) [INFO]	Progress: 33%
+2026-05-10 02:45:03 (2829434) [INFO]	Progress: 34%
+2026-05-10 02:45:08 (2829434) [INFO]	Progress: 35%
+2026-05-10 02:45:09 (2829434) [INFO]	Progress: 36%
+2026-05-10 02:45:10 (2829434) [INFO]	Progress: 37%
+2026-05-10 02:45:11 (2829434) [INFO]	Progress: 38%
+2026-05-10 02:45:13 (2829434) [INFO]	Progress: 39%
+2026-05-10 02:45:14 (2829434) [INFO]	Progress: 40%
+2026-05-10 02:45:16 (2829434) [INFO]	Progress: 41%
+2026-05-10 02:45:19 (2829434) [INFO]	Progress: 42%
+2026-05-10 02:45:24 (2829434) [INFO]	Progress: 43%
+2026-05-10 02:45:24 (2829434) [INFO]	Progress: 44%
+2026-05-10 02:45:25 (2829434) [INFO]	Progress: 45%
+2026-05-10 02:45:27 (2829434) [INFO]	Progress: 47%
+2026-05-10 02:45:30 (2829434) [INFO]	Progress: 48%
+2026-05-10 02:45:31 (2829434) [INFO]	Progress: 49%
+2026-05-10 02:45:35 (2829434) [INFO]	Progress: 50%
+2026-05-10 02:45:38 (2829434) [INFO]	Progress: 51%
+2026-05-10 02:45:41 (2829434) [INFO]	Progress: 53%
+2026-05-10 02:45:41 (2829434) [INFO]	Progress: 55%
+2026-05-10 02:45:44 (2829434) [INFO]	Progress: 56%
+2026-05-10 02:45:45 (2829434) [INFO]	Progress: 57%
+2026-05-10 02:45:47 (2829434) [INFO]	Progress: 58%
+2026-05-10 02:45:54 (2829434) [INFO]	Progress: 59%
+2026-05-10 02:45:55 (2829434) [INFO]	Progress: 60%
+2026-05-10 02:45:55 (2829434) [INFO]	Progress: 61%
+2026-05-10 02:45:56 (2829434) [INFO]	Progress: 62%
+2026-05-10 02:45:57 (2829434) [INFO]	Progress: 63%
+2026-05-10 02:46:00 (2829434) [INFO]	Progress: 64%
+2026-05-10 02:46:01 (2829434) [INFO]	Progress: 65%
+2026-05-10 02:46:01 (2829434) [INFO]	Progress: 66%
+2026-05-10 02:46:08 (2829434) [INFO]	Progress: 67%
+2026-05-10 02:46:11 (2829434) [INFO]	Progress: 68%
+2026-05-10 02:46:11 (2829434) [INFO]	Progress: 69%
+2026-05-10 02:46:12 (2829434) [INFO]	Progress: 70%
+2026-05-10 02:46:12 (2829434) [INFO]	Progress: 71%
+2026-05-10 02:46:13 (2829434) [INFO]	Progress: 72%
+2026-05-10 02:46:13 (2829434) [INFO]	Progress: 73%
+2026-05-10 02:46:16 (2829434) [INFO]	Progress: 74%
+2026-05-10 02:46:23 (2829434) [INFO]	Progress: 75%
+2026-05-10 02:46:24 (2829434) [INFO]	Progress: 76%
+2026-05-10 02:46:25 (2829434) [INFO]	Progress: 77%
+2026-05-10 02:46:25 (2829434) [INFO]	Progress: 78%
+2026-05-10 02:46:27 (2829434) [INFO]	Progress: 79%
+2026-05-10 02:46:29 (2829434) [INFO]	Progress: 80%
+2026-05-10 02:46:30 (2829434) [INFO]	Progress: 81%
+2026-05-10 02:46:31 (2829434) [INFO]	Progress: 82%
+2026-05-10 02:46:39 (2829434) [INFO]	Progress: 83%
+2026-05-10 02:46:41 (2829434) [INFO]	Progress: 84%
+2026-05-10 02:46:43 (2829434) [INFO]	Progress: 86%
+2026-05-10 02:46:44 (2829434) [INFO]	Progress: 88%
+2026-05-10 02:46:45 (2829434) [INFO]	Progress: 89%
+2026-05-10 02:46:51 (2829434) [INFO]	Progress: 90%
+2026-05-10 02:46:55 (2829434) [INFO]	Progress: 91%
+2026-05-10 02:46:55 (2829434) [INFO]	Progress: 92%
+2026-05-10 02:46:56 (2829434) [INFO]	Progress: 93%
+2026-05-10 02:46:58 (2829434) [INFO]	Progress: 94%
+2026-05-10 02:46:58 (2829434) [INFO]	Progress: 95%
+2026-05-10 02:47:00 (2829434) [INFO]	Progress: 97%
+2026-05-10 02:47:04 (2829434) [INFO]	Progress: 98%
+2026-05-10 02:47:04 (2829434) [INFO]	Progress: 99%
+2026-05-10 02:47:07 (2829434) [INFO]	Progress: 100%
+
+2026-05-10 02:47:07 (2829434) [INFO]	Counting reads in nonpeak regions
+2026-05-10 02:47:07 (2829434) [INFO]	Progress: 0%
+2026-05-10 02:47:11 (2829434) [INFO]	Progress: 2%
+2026-05-10 02:47:12 (2829434) [INFO]	Progress: 5%
+2026-05-10 02:47:12 (2829434) [INFO]	Progress: 8%
+2026-05-10 02:47:15 (2829434) [INFO]	Progress: 10%
+2026-05-10 02:47:16 (2829434) [INFO]	Progress: 12%
+2026-05-10 02:47:16 (2829434) [INFO]	Progress: 16%
+2026-05-10 02:47:19 (2829434) [INFO]	Progress: 19%
+2026-05-10 02:47:20 (2829434) [INFO]	Progress: 22%
+2026-05-10 02:47:21 (2829434) [INFO]	Progress: 24%
+2026-05-10 02:47:23 (2829434) [INFO]	Progress: 26%
+2026-05-10 02:47:25 (2829434) [INFO]	Progress: 28%
+2026-05-10 02:47:25 (2829434) [INFO]	Progress: 31%
+2026-05-10 02:47:26 (2829434) [INFO]	Progress: 32%
+2026-05-10 02:47:28 (2829434) [INFO]	Progress: 33%
+2026-05-10 02:47:28 (2829434) [INFO]	Progress: 35%
+2026-05-10 02:47:29 (2829434) [INFO]	Progress: 37%
+2026-05-10 02:47:29 (2829434) [INFO]	Progress: 38%
+2026-05-10 02:47:30 (2829434) [INFO]	Progress: 40%
+2026-05-10 02:47:32 (2829434) [INFO]	Progress: 41%
+2026-05-10 02:47:32 (2829434) [INFO]	Progress: 43%
+2026-05-10 02:47:33 (2829434) [INFO]	Progress: 44%
+2026-05-10 02:47:34 (2829434) [INFO]	Progress: 46%
+2026-05-10 02:47:34 (2829434) [INFO]	Progress: 47%
+2026-05-10 02:47:35 (2829434) [INFO]	Progress: 48%
+2026-05-10 02:47:36 (2829434) [INFO]	Progress: 49%
+2026-05-10 02:47:36 (2829434) [INFO]	Progress: 51%
+2026-05-10 02:47:37 (2829434) [INFO]	Progress: 52%
+2026-05-10 02:47:38 (2829434) [INFO]	Progress: 53%
+2026-05-10 02:47:39 (2829434) [INFO]	Progress: 55%
+2026-05-10 02:47:39 (2829434) [INFO]	Progress: 56%
+2026-05-10 02:47:40 (2829434) [INFO]	Progress: 58%
+2026-05-10 02:47:41 (2829434) [INFO]	Progress: 59%
+2026-05-10 02:47:42 (2829434) [INFO]	Progress: 61%
+2026-05-10 02:47:43 (2829434) [INFO]	Progress: 62%
+2026-05-10 02:47:44 (2829434) [INFO]	Progress: 64%
+2026-05-10 02:47:45 (2829434) [INFO]	Progress: 66%
+2026-05-10 02:47:45 (2829434) [INFO]	Progress: 69%
+2026-05-10 02:47:48 (2829434) [INFO]	Progress: 70%
+2026-05-10 02:47:48 (2829434) [INFO]	Progress: 73%
+2026-05-10 02:47:49 (2829434) [INFO]	Progress: 75%
+2026-05-10 02:47:50 (2829434) [INFO]	Progress: 77%
+2026-05-10 02:47:52 (2829434) [INFO]	Progress: 78%
+2026-05-10 02:47:52 (2829434) [INFO]	Progress: 79%
+2026-05-10 02:47:53 (2829434) [INFO]	Progress: 81%
+2026-05-10 02:47:53 (2829434) [INFO]	Progress: 83%
+2026-05-10 02:47:54 (2829434) [INFO]	Progress: 84%
+2026-05-10 02:47:55 (2829434) [INFO]	Progress: 85%
+2026-05-10 02:47:56 (2829434) [INFO]	Progress: 86%
+2026-05-10 02:47:57 (2829434) [INFO]	Progress: 87%
+2026-05-10 02:47:57 (2829434) [INFO]	Progress: 88%
+2026-05-10 02:47:58 (2829434) [INFO]	Progress: 91%
+2026-05-10 02:47:58 (2829434) [INFO]	Progress: 92%
+2026-05-10 02:47:59 (2829434) [INFO]	Progress: 93%
+2026-05-10 02:48:01 (2829434) [INFO]	Progress: 95%
+2026-05-10 02:48:02 (2829434) [INFO]	Progress: 98%
+2026-05-10 02:48:03 (2829434) [INFO]	Progress: 100%
+2026-05-10 02:48:03 (2829434) [STATS]	TOTAL_READS	125679298
+2026-05-10 02:48:03 (2829434) [STATS]	PEAK_READS	95038656
+2026-05-10 02:48:03 (2829434) [STATS]	NONPEAK_READS	30640642
+2026-05-10 02:48:03 (2829434) [STATS]	LIB_NORM	0.07957
+2026-05-10 02:48:03 (2829434) [STATS]	FRiP	0.75620
+2026-05-10 02:48:03 (2829434) [STATS]	CORRECTION_FACTOR:	0.10522
+
+2026-05-10 02:48:03 (2829434) [INFO]	Started estimation of sequence bias...
+2026-05-10 02:48:03 (2829434) [INFO]	Progress: 0%
+2026-05-10 02:48:10 (2829434) [INFO]	Progress: 3%
+2026-05-10 02:48:10 (2829434) [INFO]	Progress: 5%
+2026-05-10 02:48:11 (2829434) [INFO]	Progress: 7%
+2026-05-10 02:48:11 (2829434) [INFO]	Progress: 8%
+2026-05-10 02:48:15 (2829434) [INFO]	Progress: 9%
+2026-05-10 02:48:16 (2829434) [INFO]	Progress: 13%
+2026-05-10 02:48:17 (2829434) [INFO]	Progress: 16%
+2026-05-10 02:48:21 (2829434) [INFO]	Progress: 17%
+2026-05-10 02:48:21 (2829434) [INFO]	Progress: 18%
+2026-05-10 02:48:22 (2829434) [INFO]	Progress: 19%
+2026-05-10 02:48:23 (2829434) [INFO]	Progress: 21%
+2026-05-10 02:48:24 (2829434) [INFO]	Progress: 23%
+2026-05-10 02:48:24 (2829434) [INFO]	Progress: 24%
+2026-05-10 02:48:27 (2829434) [INFO]	Progress: 25%
+2026-05-10 02:48:27 (2829434) [INFO]	Progress: 26%
+2026-05-10 02:48:30 (2829434) [INFO]	Progress: 28%
+2026-05-10 02:48:31 (2829434) [INFO]	Progress: 29%
+2026-05-10 02:48:31 (2829434) [INFO]	Progress: 30%
+2026-05-10 02:48:32 (2829434) [INFO]	Progress: 31%
+2026-05-10 02:48:32 (2829434) [INFO]	Progress: 32%
+2026-05-10 02:48:33 (2829434) [INFO]	Progress: 33%
+2026-05-10 02:48:35 (2829434) [INFO]	Progress: 35%
+2026-05-10 02:48:36 (2829434) [INFO]	Progress: 36%
+2026-05-10 02:48:37 (2829434) [INFO]	Progress: 37%
+2026-05-10 02:48:37 (2829434) [INFO]	Progress: 38%
+2026-05-10 02:48:39 (2829434) [INFO]	Progress: 40%
+2026-05-10 02:48:39 (2829434) [INFO]	Progress: 41%
+2026-05-10 02:48:40 (2829434) [INFO]	Progress: 42%
+2026-05-10 02:48:41 (2829434) [INFO]	Progress: 43%
+2026-05-10 02:48:43 (2829434) [INFO]	Progress: 44%
+2026-05-10 02:48:44 (2829434) [INFO]	Progress: 46%
+2026-05-10 02:48:45 (2829434) [INFO]	Progress: 47%
+2026-05-10 02:48:45 (2829434) [INFO]	Progress: 49%
+2026-05-10 02:48:46 (2829434) [INFO]	Progress: 50%
+2026-05-10 02:48:48 (2829434) [INFO]	Progress: 51%
+2026-05-10 02:48:49 (2829434) [INFO]	Progress: 52%
+2026-05-10 02:48:50 (2829434) [INFO]	Progress: 53%
+2026-05-10 02:48:51 (2829434) [INFO]	Progress: 54%
+2026-05-10 02:48:52 (2829434) [INFO]	Progress: 56%
+2026-05-10 02:48:52 (2829434) [INFO]	Progress: 57%
+2026-05-10 02:48:53 (2829434) [INFO]	Progress: 58%
+2026-05-10 02:48:55 (2829434) [INFO]	Progress: 59%
+2026-05-10 02:48:56 (2829434) [INFO]	Progress: 61%
+2026-05-10 02:48:58 (2829434) [INFO]	Progress: 62%
+2026-05-10 02:48:59 (2829434) [INFO]	Progress: 63%
+2026-05-10 02:49:00 (2829434) [INFO]	Progress: 64%
+2026-05-10 02:49:00 (2829434) [INFO]	Progress: 66%
+2026-05-10 02:49:02 (2829434) [INFO]	Progress: 69%
+2026-05-10 02:49:05 (2829434) [INFO]	Progress: 70%
+2026-05-10 02:49:06 (2829434) [INFO]	Progress: 71%
+2026-05-10 02:49:06 (2829434) [INFO]	Progress: 73%
+2026-05-10 02:49:07 (2829434) [INFO]	Progress: 75%
+2026-05-10 02:49:08 (2829434) [INFO]	Progress: 76%
+2026-05-10 02:49:09 (2829434) [INFO]	Progress: 77%
+2026-05-10 02:49:12 (2829434) [INFO]	Progress: 80%
+2026-05-10 02:49:13 (2829434) [INFO]	Progress: 81%
+2026-05-10 02:49:13 (2829434) [INFO]	Progress: 83%
+2026-05-10 02:49:15 (2829434) [INFO]	Progress: 84%
+2026-05-10 02:49:16 (2829434) [INFO]	Progress: 85%
+2026-05-10 02:49:19 (2829434) [INFO]	Progress: 87%
+2026-05-10 02:49:20 (2829434) [INFO]	Progress: 88%
+2026-05-10 02:49:20 (2829434) [INFO]	Progress: 89%
+2026-05-10 02:49:21 (2829434) [INFO]	Progress: 91%
+2026-05-10 02:49:22 (2829434) [INFO]	Progress: 92%
+2026-05-10 02:49:23 (2829434) [INFO]	Progress: 93%
+2026-05-10 02:49:25 (2829434) [INFO]	Progress: 94%
+2026-05-10 02:49:26 (2829434) [INFO]	Progress: 95%
+2026-05-10 02:49:27 (2829434) [INFO]	Progress: 97%
+2026-05-10 02:49:29 (2829434) [INFO]	Progress: 98%
+2026-05-10 02:49:30 (2829434) [INFO]	Progress: 99%
+2026-05-10 02:49:30 (2829434) [INFO]	Progress: 100%
+2026-05-10 02:49:30 (2829434) [INFO]	Finalizing bias motif for scoring
+
+2026-05-10 02:49:31 (2829434) [INFO]	----- Correcting reads from .bam within output regions -----
+2026-05-10 02:49:31 (2829434) [INFO]	Correction progress: 0%
+2026-05-10 02:55:32 (2829434) [INFO]	Correction progress: 1.0%
+2026-05-10 02:55:39 (2829434) [INFO]	Correction progress: 2.0%
+2026-05-10 02:55:42 (2829434) [INFO]	Correction progress: 3.0%
+2026-05-10 02:55:49 (2829434) [INFO]	Correction progress: 4.0%
+2026-05-10 02:55:58 (2829434) [INFO]	Correction progress: 5.0%
+2026-05-10 02:55:59 (2829434) [INFO]	Correction progress: 6.0%
+2026-05-10 02:56:12 (2829434) [INFO]	Correction progress: 7.0%
+2026-05-10 03:01:19 (2829434) [INFO]	Correction progress: 8.0%
+2026-05-10 03:02:21 (2829434) [INFO]	Correction progress: 9.0%
+2026-05-10 03:02:53 (2829434) [INFO]	Correction progress: 10.0%
+2026-05-10 03:03:06 (2829434) [INFO]	Correction progress: 11.0%
+2026-05-10 03:03:32 (2829434) [INFO]	Correction progress: 12.0%
+2026-05-10 03:03:38 (2829434) [INFO]	Correction progress: 13.0%
+2026-05-10 03:04:16 (2829434) [INFO]	Correction progress: 14.0%
+2026-05-10 03:08:25 (2829434) [INFO]	Correction progress: 15.0%
+2026-05-10 03:09:35 (2829434) [INFO]	Correction progress: 16.0%
+2026-05-10 03:09:50 (2829434) [INFO]	Correction progress: 17.0%
+2026-05-10 03:09:54 (2829434) [INFO]	Correction progress: 18.0%
+2026-05-10 03:10:22 (2829434) [INFO]	Correction progress: 19.0%
+2026-05-10 03:11:20 (2829434) [INFO]	Correction progress: 20.0%
+2026-05-10 03:11:44 (2829434) [INFO]	Correction progress: 21.0%
+2026-05-10 03:14:45 (2829434) [INFO]	Correction progress: 22.0%
+2026-05-10 03:16:14 (2829434) [INFO]	Correction progress: 23.0%
+2026-05-10 03:16:54 (2829434) [INFO]	Correction progress: 24.0%
+2026-05-10 03:17:06 (2829434) [INFO]	Correction progress: 25.0%
+2026-05-10 03:17:07 (2829434) [INFO]	Correction progress: 26.0%
+2026-05-10 03:17:08 (2829434) [INFO]	Correction progress: 27.0%
+2026-05-10 03:18:11 (2829434) [INFO]	Correction progress: 28.0%
+2026-05-10 03:20:14 (2829434) [INFO]	Correction progress: 29.0%
+2026-05-10 03:22:55 (2829434) [INFO]	Correction progress: 30.0%
+2026-05-10 03:23:27 (2829434) [INFO]	Correction progress: 31.0%
+2026-05-10 03:23:28 (2829434) [INFO]	Correction progress: 32.0%
+2026-05-10 03:23:29 (2829434) [INFO]	Correction progress: 33.0%
+2026-05-10 03:23:31 (2829434) [INFO]	Correction progress: 34.0%
+2026-05-10 03:26:13 (2829434) [INFO]	Correction progress: 35.0%
+2026-05-10 03:27:05 (2829434) [INFO]	Correction progress: 36.0%
+2026-05-10 03:29:31 (2829434) [INFO]	Correction progress: 37.0%
+2026-05-10 03:29:43 (2829434) [INFO]	Correction progress: 38.0%
+2026-05-10 03:29:57 (2829434) [INFO]	Correction progress: 39.0%
+2026-05-10 03:30:18 (2829434) [INFO]	Correction progress: 40.0%
+2026-05-10 03:30:55 (2829434) [INFO]	Correction progress: 41.0%
+2026-05-10 03:33:51 (2829434) [INFO]	Correction progress: 42.0%
+2026-05-10 03:35:35 (2829434) [INFO]	Correction progress: 43.0%
+2026-05-10 03:35:47 (2829434) [INFO]	Correction progress: 44.0%
+2026-05-10 03:35:58 (2829434) [INFO]	Correction progress: 45.0%
+2026-05-10 03:36:32 (2829434) [INFO]	Correction progress: 46.0%
+2026-05-10 03:36:50 (2829434) [INFO]	Correction progress: 47.0%
+2026-05-10 03:36:52 (2829434) [INFO]	Correction progress: 48.0%
+2026-05-10 03:41:42 (2829434) [INFO]	Correction progress: 49.0%
+2026-05-10 03:42:10 (2829434) [INFO]	Correction progress: 50.0%
+2026-05-10 03:42:45 (2829434) [INFO]	Correction progress: 51.0%
+2026-05-10 03:43:08 (2829434) [INFO]	Correction progress: 52.0%
+2026-05-10 03:43:09 (2829434) [INFO]	Correction progress: 53.0%
+2026-05-10 03:43:12 (2829434) [INFO]	Correction progress: 54.0%
+2026-05-10 03:44:08 (2829434) [INFO]	Correction progress: 55.0%
+2026-05-10 03:48:00 (2829434) [INFO]	Correction progress: 56.0%
+2026-05-10 03:48:21 (2829434) [INFO]	Correction progress: 57.0%
+2026-05-10 03:49:05 (2829434) [INFO]	Correction progress: 58.0%
+2026-05-10 03:49:06 (2829434) [INFO]	Correction progress: 59.0%
+2026-05-10 03:49:30 (2829434) [INFO]	Correction progress: 60.0%
+2026-05-10 03:51:25 (2829434) [INFO]	Correction progress: 61.0%
+2026-05-10 03:51:59 (2829434) [INFO]	Correction progress: 62.0%
+2026-05-10 03:54:11 (2829434) [INFO]	Correction progress: 63.0%
+2026-05-10 03:54:17 (2829434) [INFO]	Correction progress: 64.0%
+2026-05-10 03:55:21 (2829434) [INFO]	Correction progress: 65.0%
+2026-05-10 03:55:29 (2829434) [INFO]	Correction progress: 66.0%
+2026-05-10 03:57:10 (2829434) [INFO]	Correction progress: 67.0%
+2026-05-10 03:58:26 (2829434) [INFO]	Correction progress: 68.0%
+2026-05-10 04:00:17 (2829434) [INFO]	Correction progress: 69.0%
+2026-05-10 04:00:20 (2829434) [INFO]	Correction progress: 70.0%
+2026-05-10 04:01:02 (2829434) [INFO]	Correction progress: 71.0%
+2026-05-10 04:01:11 (2829434) [INFO]	Correction progress: 72.0%
+2026-05-10 04:01:35 (2829434) [INFO]	Correction progress: 73.0%
+2026-05-10 04:03:46 (2829434) [INFO]	Correction progress: 74.0%
+2026-05-10 04:06:13 (2829434) [INFO]	Correction progress: 75.0%
+2026-05-10 04:06:32 (2829434) [INFO]	Correction progress: 76.0%
+2026-05-10 04:06:54 (2829434) [INFO]	Correction progress: 77.0%
+2026-05-10 04:07:13 (2829434) [INFO]	Correction progress: 78.0%
+2026-05-10 04:07:31 (2829434) [INFO]	Correction progress: 79.0%
+2026-05-10 04:09:10 (2829434) [INFO]	Correction progress: 80.0%
+2026-05-10 04:10:48 (2829434) [INFO]	Correction progress: 81.0%
+2026-05-10 04:12:48 (2829434) [INFO]	Correction progress: 82.0%
+2026-05-10 04:14:06 (2829434) [INFO]	Correction progress: 83.0%
+2026-05-10 04:14:13 (2829434) [INFO]	Correction progress: 84.0%
+2026-05-10 04:14:33 (2829434) [INFO]	Correction progress: 85.0%
+2026-05-10 04:15:46 (2829434) [INFO]	Correction progress: 86.0%
+2026-05-10 04:16:18 (2829434) [INFO]	Correction progress: 87.0%
+2026-05-10 04:17:11 (2829434) [INFO]	Correction progress: 88.0%
+2026-05-10 04:19:00 (2829434) [INFO]	Correction progress: 89.0%
+2026-05-10 04:21:05 (2829434) [INFO]	Correction progress: 90.0%
+2026-05-10 04:21:36 (2829434) [INFO]	Correction progress: 91.0%
+2026-05-10 04:21:57 (2829434) [INFO]	Correction progress: 92.0%
+2026-05-10 04:23:05 (2829434) [INFO]	Correction progress: 93.0%
+2026-05-10 04:23:32 (2829434) [INFO]	Correction progress: 94.0%
+2026-05-10 04:24:15 (2829434) [INFO]	Correction progress: 95.0%
+2026-05-10 04:25:15 (2829434) [INFO]	Correction progress: 96.0%
+2026-05-10 04:26:54 (2829434) [INFO]	Correction progress: 97.0%
+2026-05-10 04:27:23 (2829434) [INFO]	Correction progress: 98.0%
+2026-05-10 04:27:34 (2829434) [INFO]	Correction progress: 99.0%
+2026-05-10 04:27:56 (2831339) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_uncorrected.bw (this might take some time)
+2026-05-10 04:27:56 (2829434) [INFO]	Correction progress: 100.0%
+2026-05-10 04:27:56 (2829434) [INFO]	Correction progress: done!
+2026-05-10 04:28:15 (2831339) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_bias.bw (this might take some time)
+2026-05-10 04:29:58 (2831339) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_expected.bw (this might take some time)
+2026-05-10 04:31:16 (2831339) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/L_KO.merged/L_KO.merged_corrected.bw (this might take some time)
+
+2026-05-10 04:32:34 (2829434) [INFO]	Verifying bias correction
+2026-05-10 04:32:34 (2829434) [STATS]	BIAS	pre-bias variance forward:	0.0040217
+2026-05-10 04:32:34 (2829434) [STATS]	BIAS	post-bias variance forward:	0.0000513
+2026-05-10 04:32:35 (2829434) [STATS]	BIAS	pre-bias variance reverse:	0.0040202
+2026-05-10 04:32:35 (2829434) [STATS]	BIAS	post-bias variance reverse:	0.0000512
+
+2026-05-10 04:32:35 (2829434) [INFO]	Finished ATACorrect run (total time elapsed: 1:48:48.587080)
+Processing LG_WT.merged
+# TOBIAS 0.17.3 ATACorrect (run started 2026-05-10 04:32:44.367444)
+# Working directory: /projects/svankamamidi@xsede.org/Project_Tbet_ATACseq/2_TOBIAS_scripts
+# Command line call: TOBIAS ATACorrect --bam /pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LG_WT.merged.bam --genome /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa --peaks /pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed --blacklist /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed --outdir /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged --cores 8
+
+# ----- Input parameters -----
+# bam:	/pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LG_WT.merged.bam
+# genome:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa
+# peaks:	/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed
+# regions_in:	None
+# regions_out:	None
+# blacklist:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed
+# extend:	100
+# split_strands:	False
+# norm_off:	False
+# track_off:	[]
+# drop_chroms:	['chrM', 'chrMT', 'M', 'MT', 'Mito']
+# k_flank:	12
+# read_shift:	[4, -5]
+# bg_shift:	100
+# window:	100
+# score_mat:	DWM
+# bias_pkl:	None
+# prefix:	LG_WT.merged
+# outdir:	/pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged
+# cores:	8
+# split:	100
+# verbosity:	3
+
+
+# ----- Output files -----
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_uncorrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_bias.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_expected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_corrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_atacorrect.pdf
+
+
+2026-05-10 04:32:44 (2852835) [INFO]	----- Processing input data -----
+2026-05-10 04:32:44 (2852835) [INFO]	Reading info from .bam file
+2026-05-10 04:32:44 (2852835) [INFO]	Reading info from .fasta file
+2026-05-10 04:32:44 (2852835) [WARNING]	No additional chromosomes were removed. Consider using '--drop-chroms' to remove mitochondrial and/or other unwanted contigs.
+2026-05-10 04:32:44 (2852835) [INFO]	Processing input/output regions
+2026-05-10 04:32:51 (2852835) [STATS]	genome: 65 regions | 2730855475 bp | 100.00% coverage
+2026-05-10 04:32:51 (2852835) [STATS]	input_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 04:32:51 (2852835) [STATS]	output_regions: 145146 regions | 301639521 bp | 11.05% coverage
+2026-05-10 04:32:51 (2852835) [STATS]	peak_regions: 168236 regions | 269019900 bp | 9.85% coverage
+2026-05-10 04:32:51 (2852835) [STATS]	nonpeak_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 04:32:51 (2852835) [STATS]	blacklist_regions: 3435 regions | 238977200 bp | 8.75% coverage
+
+2026-05-10 04:32:51 (2852835) [INFO]	----- Estimating normalization factors -----
+2026-05-10 04:32:51 (2852835) [INFO]	Counting reads in peak regions
+2026-05-10 04:32:52 (2852835) [INFO]	Progress: 0%
+2026-05-10 04:33:02 (2852835) [INFO]	Progress: 1%
+2026-05-10 04:33:04 (2852835) [INFO]	Progress: 2%
+2026-05-10 04:33:06 (2852835) [INFO]	Progress: 3%
+2026-05-10 04:33:07 (2852835) [INFO]	Progress: 5%
+2026-05-10 04:33:07 (2852835) [INFO]	Progress: 6%
+2026-05-10 04:33:08 (2852835) [INFO]	Progress: 7%
+2026-05-10 04:33:09 (2852835) [INFO]	Progress: 8%
+2026-05-10 04:33:15 (2852835) [INFO]	Progress: 9%
+2026-05-10 04:33:20 (2852835) [INFO]	Progress: 10%
+2026-05-10 04:33:23 (2852835) [INFO]	Progress: 11%
+2026-05-10 04:33:24 (2852835) [INFO]	Progress: 12%
+2026-05-10 04:33:24 (2852835) [INFO]	Progress: 13%
+2026-05-10 04:33:25 (2852835) [INFO]	Progress: 14%
+2026-05-10 04:33:25 (2852835) [INFO]	Progress: 15%
+2026-05-10 04:33:28 (2852835) [INFO]	Progress: 16%
+2026-05-10 04:33:28 (2852835) [INFO]	Progress: 17%
+2026-05-10 04:33:37 (2852835) [INFO]	Progress: 19%
+2026-05-10 04:33:39 (2852835) [INFO]	Progress: 20%
+2026-05-10 04:33:40 (2852835) [INFO]	Progress: 21%
+2026-05-10 04:33:41 (2852835) [INFO]	Progress: 24%
+2026-05-10 04:33:48 (2852835) [INFO]	Progress: 25%
+2026-05-10 04:33:48 (2852835) [INFO]	Progress: 26%
+2026-05-10 04:33:51 (2852835) [INFO]	Progress: 27%
+2026-05-10 04:33:52 (2852835) [INFO]	Progress: 28%
+2026-05-10 04:33:54 (2852835) [INFO]	Progress: 29%
+2026-05-10 04:33:56 (2852835) [INFO]	Progress: 32%
+2026-05-10 04:33:59 (2852835) [INFO]	Progress: 33%
+2026-05-10 04:33:59 (2852835) [INFO]	Progress: 34%
+2026-05-10 04:34:06 (2852835) [INFO]	Progress: 35%
+2026-05-10 04:34:09 (2852835) [INFO]	Progress: 36%
+2026-05-10 04:34:09 (2852835) [INFO]	Progress: 37%
+2026-05-10 04:34:10 (2852835) [INFO]	Progress: 38%
+2026-05-10 04:34:11 (2852835) [INFO]	Progress: 39%
+2026-05-10 04:34:11 (2852835) [INFO]	Progress: 41%
+2026-05-10 04:34:15 (2852835) [INFO]	Progress: 42%
+2026-05-10 04:34:21 (2852835) [INFO]	Progress: 43%
+2026-05-10 04:34:23 (2852835) [INFO]	Progress: 44%
+2026-05-10 04:34:24 (2852835) [INFO]	Progress: 45%
+2026-05-10 04:34:25 (2852835) [INFO]	Progress: 46%
+2026-05-10 04:34:26 (2852835) [INFO]	Progress: 47%
+2026-05-10 04:34:28 (2852835) [INFO]	Progress: 48%
+2026-05-10 04:34:29 (2852835) [INFO]	Progress: 49%
+2026-05-10 04:34:35 (2852835) [INFO]	Progress: 50%
+2026-05-10 04:34:35 (2852835) [INFO]	Progress: 51%
+2026-05-10 04:34:37 (2852835) [INFO]	Progress: 52%
+2026-05-10 04:34:38 (2852835) [INFO]	Progress: 53%
+2026-05-10 04:34:39 (2852835) [INFO]	Progress: 54%
+2026-05-10 04:34:40 (2852835) [INFO]	Progress: 55%
+2026-05-10 04:34:42 (2852835) [INFO]	Progress: 56%
+2026-05-10 04:34:44 (2852835) [INFO]	Progress: 57%
+2026-05-10 04:34:48 (2852835) [INFO]	Progress: 59%
+2026-05-10 04:34:51 (2852835) [INFO]	Progress: 60%
+2026-05-10 04:34:53 (2852835) [INFO]	Progress: 61%
+2026-05-10 04:34:55 (2852835) [INFO]	Progress: 63%
+2026-05-10 04:35:00 (2852835) [INFO]	Progress: 64%
+2026-05-10 04:35:02 (2852835) [INFO]	Progress: 65%
+2026-05-10 04:35:03 (2852835) [INFO]	Progress: 67%
+2026-05-10 04:35:04 (2852835) [INFO]	Progress: 68%
+2026-05-10 04:35:09 (2852835) [INFO]	Progress: 69%
+2026-05-10 04:35:10 (2852835) [INFO]	Progress: 70%
+2026-05-10 04:35:11 (2852835) [INFO]	Progress: 71%
+2026-05-10 04:35:13 (2852835) [INFO]	Progress: 72%
+2026-05-10 04:35:16 (2852835) [INFO]	Progress: 73%
+2026-05-10 04:35:18 (2852835) [INFO]	Progress: 74%
+2026-05-10 04:35:18 (2852835) [INFO]	Progress: 75%
+2026-05-10 04:35:20 (2852835) [INFO]	Progress: 76%
+2026-05-10 04:35:23 (2852835) [INFO]	Progress: 78%
+2026-05-10 04:35:24 (2852835) [INFO]	Progress: 79%
+2026-05-10 04:35:29 (2852835) [INFO]	Progress: 80%
+2026-05-10 04:35:30 (2852835) [INFO]	Progress: 81%
+2026-05-10 04:35:34 (2852835) [INFO]	Progress: 82%
+2026-05-10 04:35:37 (2852835) [INFO]	Progress: 83%
+2026-05-10 04:35:39 (2852835) [INFO]	Progress: 84%
+2026-05-10 04:35:40 (2852835) [INFO]	Progress: 85%
+2026-05-10 04:35:40 (2852835) [INFO]	Progress: 86%
+2026-05-10 04:35:42 (2852835) [INFO]	Progress: 87%
+2026-05-10 04:35:44 (2852835) [INFO]	Progress: 88%
+2026-05-10 04:35:45 (2852835) [INFO]	Progress: 89%
+2026-05-10 04:35:51 (2852835) [INFO]	Progress: 90%
+2026-05-10 04:35:53 (2852835) [INFO]	Progress: 91%
+2026-05-10 04:35:54 (2852835) [INFO]	Progress: 93%
+2026-05-10 04:35:57 (2852835) [INFO]	Progress: 95%
+2026-05-10 04:35:58 (2852835) [INFO]	Progress: 97%
+2026-05-10 04:36:02 (2852835) [INFO]	Progress: 98%
+2026-05-10 04:36:03 (2852835) [INFO]	Progress: 99%
+2026-05-10 04:36:07 (2852835) [INFO]	Progress: 100%
+
+2026-05-10 04:36:07 (2852835) [INFO]	Counting reads in nonpeak regions
+2026-05-10 04:36:07 (2852835) [INFO]	Progress: 0%
+2026-05-10 04:36:12 (2852835) [INFO]	Progress: 2%
+2026-05-10 04:36:12 (2852835) [INFO]	Progress: 5%
+2026-05-10 04:36:13 (2852835) [INFO]	Progress: 8%
+2026-05-10 04:36:15 (2852835) [INFO]	Progress: 9%
+2026-05-10 04:36:16 (2852835) [INFO]	Progress: 10%
+2026-05-10 04:36:17 (2852835) [INFO]	Progress: 12%
+2026-05-10 04:36:17 (2852835) [INFO]	Progress: 16%
+2026-05-10 04:36:20 (2852835) [INFO]	Progress: 17%
+2026-05-10 04:36:20 (2852835) [INFO]	Progress: 18%
+2026-05-10 04:36:21 (2852835) [INFO]	Progress: 19%
+2026-05-10 04:36:22 (2852835) [INFO]	Progress: 22%
+2026-05-10 04:36:22 (2852835) [INFO]	Progress: 24%
+2026-05-10 04:36:24 (2852835) [INFO]	Progress: 25%
+2026-05-10 04:36:25 (2852835) [INFO]	Progress: 26%
+2026-05-10 04:36:26 (2852835) [INFO]	Progress: 27%
+2026-05-10 04:36:27 (2852835) [INFO]	Progress: 28%
+2026-05-10 04:36:27 (2852835) [INFO]	Progress: 30%
+2026-05-10 04:36:28 (2852835) [INFO]	Progress: 32%
+2026-05-10 04:36:29 (2852835) [INFO]	Progress: 34%
+2026-05-10 04:36:30 (2852835) [INFO]	Progress: 35%
+2026-05-10 04:36:31 (2852835) [INFO]	Progress: 37%
+2026-05-10 04:36:32 (2852835) [INFO]	Progress: 38%
+2026-05-10 04:36:33 (2852835) [INFO]	Progress: 39%
+2026-05-10 04:36:33 (2852835) [INFO]	Progress: 42%
+2026-05-10 04:36:34 (2852835) [INFO]	Progress: 43%
+2026-05-10 04:36:36 (2852835) [INFO]	Progress: 44%
+2026-05-10 04:36:37 (2852835) [INFO]	Progress: 47%
+2026-05-10 04:36:37 (2852835) [INFO]	Progress: 48%
+2026-05-10 04:36:38 (2852835) [INFO]	Progress: 50%
+2026-05-10 04:36:39 (2852835) [INFO]	Progress: 51%
+2026-05-10 04:36:41 (2852835) [INFO]	Progress: 52%
+2026-05-10 04:36:41 (2852835) [INFO]	Progress: 53%
+2026-05-10 04:36:42 (2852835) [INFO]	Progress: 54%
+2026-05-10 04:36:42 (2852835) [INFO]	Progress: 57%
+2026-05-10 04:36:43 (2852835) [INFO]	Progress: 58%
+2026-05-10 04:36:45 (2852835) [INFO]	Progress: 59%
+2026-05-10 04:36:46 (2852835) [INFO]	Progress: 60%
+2026-05-10 04:36:46 (2852835) [INFO]	Progress: 62%
+2026-05-10 04:36:47 (2852835) [INFO]	Progress: 63%
+2026-05-10 04:36:48 (2852835) [INFO]	Progress: 64%
+2026-05-10 04:36:48 (2852835) [INFO]	Progress: 65%
+2026-05-10 04:36:49 (2852835) [INFO]	Progress: 66%
+2026-05-10 04:36:49 (2852835) [INFO]	Progress: 68%
+2026-05-10 04:36:50 (2852835) [INFO]	Progress: 69%
+2026-05-10 04:36:51 (2852835) [INFO]	Progress: 70%
+2026-05-10 04:36:52 (2852835) [INFO]	Progress: 72%
+2026-05-10 04:36:53 (2852835) [INFO]	Progress: 73%
+2026-05-10 04:36:53 (2852835) [INFO]	Progress: 74%
+2026-05-10 04:36:54 (2852835) [INFO]	Progress: 75%
+2026-05-10 04:36:54 (2852835) [INFO]	Progress: 76%
+2026-05-10 04:36:55 (2852835) [INFO]	Progress: 77%
+2026-05-10 04:36:56 (2852835) [INFO]	Progress: 78%
+2026-05-10 04:36:57 (2852835) [INFO]	Progress: 80%
+2026-05-10 04:36:57 (2852835) [INFO]	Progress: 81%
+2026-05-10 04:36:58 (2852835) [INFO]	Progress: 82%
+2026-05-10 04:36:58 (2852835) [INFO]	Progress: 83%
+2026-05-10 04:37:00 (2852835) [INFO]	Progress: 85%
+2026-05-10 04:37:01 (2852835) [INFO]	Progress: 87%
+2026-05-10 04:37:03 (2852835) [INFO]	Progress: 91%
+2026-05-10 04:37:04 (2852835) [INFO]	Progress: 92%
+2026-05-10 04:37:05 (2852835) [INFO]	Progress: 93%
+2026-05-10 04:37:05 (2852835) [INFO]	Progress: 95%
+2026-05-10 04:37:07 (2852835) [INFO]	Progress: 96%
+2026-05-10 04:37:08 (2852835) [INFO]	Progress: 97%
+2026-05-10 04:37:08 (2852835) [INFO]	Progress: 99%
+2026-05-10 04:37:09 (2852835) [INFO]	Progress: 100%
+2026-05-10 04:37:09 (2852835) [STATS]	TOTAL_READS	130847604
+2026-05-10 04:37:09 (2852835) [STATS]	PEAK_READS	97275958
+2026-05-10 04:37:09 (2852835) [STATS]	NONPEAK_READS	33571646
+2026-05-10 04:37:09 (2852835) [STATS]	LIB_NORM	0.07642
+2026-05-10 04:37:09 (2852835) [STATS]	FRiP	0.74343
+2026-05-10 04:37:09 (2852835) [STATS]	CORRECTION_FACTOR:	0.10280
+
+2026-05-10 04:37:09 (2852835) [INFO]	Started estimation of sequence bias...
+2026-05-10 04:37:10 (2852835) [INFO]	Progress: 0%
+2026-05-10 04:37:17 (2852835) [INFO]	Progress: 3%
+2026-05-10 04:37:18 (2852835) [INFO]	Progress: 4%
+2026-05-10 04:37:18 (2852835) [INFO]	Progress: 6%
+2026-05-10 04:37:19 (2852835) [INFO]	Progress: 7%
+2026-05-10 04:37:19 (2852835) [INFO]	Progress: 8%
+2026-05-10 04:37:23 (2852835) [INFO]	Progress: 9%
+2026-05-10 04:37:24 (2852835) [INFO]	Progress: 11%
+2026-05-10 04:37:25 (2852835) [INFO]	Progress: 12%
+2026-05-10 04:37:25 (2852835) [INFO]	Progress: 16%
+2026-05-10 04:37:30 (2852835) [INFO]	Progress: 19%
+2026-05-10 04:37:31 (2852835) [INFO]	Progress: 20%
+2026-05-10 04:37:32 (2852835) [INFO]	Progress: 21%
+2026-05-10 04:37:33 (2852835) [INFO]	Progress: 22%
+2026-05-10 04:37:33 (2852835) [INFO]	Progress: 23%
+2026-05-10 04:37:34 (2852835) [INFO]	Progress: 24%
+2026-05-10 04:37:36 (2852835) [INFO]	Progress: 25%
+2026-05-10 04:37:37 (2852835) [INFO]	Progress: 26%
+2026-05-10 04:37:39 (2852835) [INFO]	Progress: 27%
+2026-05-10 04:37:39 (2852835) [INFO]	Progress: 29%
+2026-05-10 04:37:40 (2852835) [INFO]	Progress: 30%
+2026-05-10 04:37:42 (2852835) [INFO]	Progress: 31%
+2026-05-10 04:37:43 (2852835) [INFO]	Progress: 32%
+2026-05-10 04:37:43 (2852835) [INFO]	Progress: 33%
+2026-05-10 04:37:44 (2852835) [INFO]	Progress: 34%
+2026-05-10 04:37:45 (2852835) [INFO]	Progress: 36%
+2026-05-10 04:37:46 (2852835) [INFO]	Progress: 37%
+2026-05-10 04:37:47 (2852835) [INFO]	Progress: 38%
+2026-05-10 04:37:49 (2852835) [INFO]	Progress: 39%
+2026-05-10 04:37:50 (2852835) [INFO]	Progress: 40%
+2026-05-10 04:37:50 (2852835) [INFO]	Progress: 41%
+2026-05-10 04:37:51 (2852835) [INFO]	Progress: 42%
+2026-05-10 04:37:52 (2852835) [INFO]	Progress: 43%
+2026-05-10 04:37:53 (2852835) [INFO]	Progress: 44%
+2026-05-10 04:37:54 (2852835) [INFO]	Progress: 46%
+2026-05-10 04:37:55 (2852835) [INFO]	Progress: 47%
+2026-05-10 04:37:56 (2852835) [INFO]	Progress: 48%
+2026-05-10 04:37:57 (2852835) [INFO]	Progress: 49%
+2026-05-10 04:37:58 (2852835) [INFO]	Progress: 50%
+2026-05-10 04:37:59 (2852835) [INFO]	Progress: 51%
+2026-05-10 04:38:00 (2852835) [INFO]	Progress: 52%
+2026-05-10 04:38:01 (2852835) [INFO]	Progress: 53%
+2026-05-10 04:38:02 (2852835) [INFO]	Progress: 54%
+2026-05-10 04:38:03 (2852835) [INFO]	Progress: 55%
+2026-05-10 04:38:04 (2852835) [INFO]	Progress: 56%
+2026-05-10 04:38:04 (2852835) [INFO]	Progress: 57%
+2026-05-10 04:38:05 (2852835) [INFO]	Progress: 58%
+2026-05-10 04:38:07 (2852835) [INFO]	Progress: 59%
+2026-05-10 04:38:08 (2852835) [INFO]	Progress: 60%
+2026-05-10 04:38:08 (2852835) [INFO]	Progress: 61%
+2026-05-10 04:38:09 (2852835) [INFO]	Progress: 62%
+2026-05-10 04:38:11 (2852835) [INFO]	Progress: 63%
+2026-05-10 04:38:12 (2852835) [INFO]	Progress: 64%
+2026-05-10 04:38:13 (2852835) [INFO]	Progress: 66%
+2026-05-10 04:38:14 (2852835) [INFO]	Progress: 67%
+2026-05-10 04:38:15 (2852835) [INFO]	Progress: 69%
+2026-05-10 04:38:15 (2852835) [INFO]	Progress: 70%
+2026-05-10 04:38:18 (2852835) [INFO]	Progress: 71%
+2026-05-10 04:38:19 (2852835) [INFO]	Progress: 72%
+2026-05-10 04:38:20 (2852835) [INFO]	Progress: 73%
+2026-05-10 04:38:21 (2852835) [INFO]	Progress: 75%
+2026-05-10 04:38:22 (2852835) [INFO]	Progress: 76%
+2026-05-10 04:38:22 (2852835) [INFO]	Progress: 78%
+2026-05-10 04:38:26 (2852835) [INFO]	Progress: 79%
+2026-05-10 04:38:26 (2852835) [INFO]	Progress: 80%
+2026-05-10 04:38:27 (2852835) [INFO]	Progress: 82%
+2026-05-10 04:38:27 (2852835) [INFO]	Progress: 83%
+2026-05-10 04:38:28 (2852835) [INFO]	Progress: 84%
+2026-05-10 04:38:30 (2852835) [INFO]	Progress: 85%
+2026-05-10 04:38:30 (2852835) [INFO]	Progress: 86%
+2026-05-10 04:38:33 (2852835) [INFO]	Progress: 87%
+2026-05-10 04:38:34 (2852835) [INFO]	Progress: 88%
+2026-05-10 04:38:35 (2852835) [INFO]	Progress: 90%
+2026-05-10 04:38:35 (2852835) [INFO]	Progress: 91%
+2026-05-10 04:38:36 (2852835) [INFO]	Progress: 92%
+2026-05-10 04:38:37 (2852835) [INFO]	Progress: 94%
+2026-05-10 04:38:39 (2852835) [INFO]	Progress: 95%
+2026-05-10 04:38:41 (2852835) [INFO]	Progress: 97%
+2026-05-10 04:38:43 (2852835) [INFO]	Progress: 98%
+2026-05-10 04:38:45 (2852835) [INFO]	Progress: 100%
+2026-05-10 04:38:45 (2852835) [INFO]	Finalizing bias motif for scoring
+
+2026-05-10 04:38:45 (2852835) [INFO]	----- Correcting reads from .bam within output regions -----
+2026-05-10 04:38:46 (2852835) [INFO]	Correction progress: 0%
+2026-05-10 04:44:49 (2852835) [INFO]	Correction progress: 1.0%
+2026-05-10 04:44:51 (2852835) [INFO]	Correction progress: 2.0%
+2026-05-10 04:45:00 (2852835) [INFO]	Correction progress: 3.0%
+2026-05-10 04:45:04 (2852835) [INFO]	Correction progress: 4.0%
+2026-05-10 04:45:11 (2852835) [INFO]	Correction progress: 5.0%
+2026-05-10 04:45:17 (2852835) [INFO]	Correction progress: 6.0%
+2026-05-10 04:45:29 (2852835) [INFO]	Correction progress: 7.0%
+2026-05-10 04:50:30 (2852835) [INFO]	Correction progress: 8.0%
+2026-05-10 04:51:35 (2852835) [INFO]	Correction progress: 9.0%
+2026-05-10 04:52:08 (2852835) [INFO]	Correction progress: 10.0%
+2026-05-10 04:52:29 (2852835) [INFO]	Correction progress: 11.0%
+2026-05-10 04:52:50 (2852835) [INFO]	Correction progress: 12.0%
+2026-05-10 04:52:51 (2852835) [INFO]	Correction progress: 13.0%
+2026-05-10 04:53:37 (2852835) [INFO]	Correction progress: 14.0%
+2026-05-10 04:57:39 (2852835) [INFO]	Correction progress: 15.0%
+2026-05-10 04:58:54 (2852835) [INFO]	Correction progress: 16.0%
+2026-05-10 04:59:12 (2852835) [INFO]	Correction progress: 17.0%
+2026-05-10 04:59:17 (2852835) [INFO]	Correction progress: 18.0%
+2026-05-10 04:59:33 (2852835) [INFO]	Correction progress: 19.0%
+2026-05-10 05:00:33 (2852835) [INFO]	Correction progress: 20.0%
+2026-05-10 05:01:04 (2852835) [INFO]	Correction progress: 21.0%
+2026-05-10 05:04:02 (2852835) [INFO]	Correction progress: 22.0%
+2026-05-10 05:05:34 (2852835) [INFO]	Correction progress: 23.0%
+2026-05-10 05:06:20 (2852835) [INFO]	Correction progress: 24.0%
+2026-05-10 05:06:23 (2852835) [INFO]	Correction progress: 25.0%
+2026-05-10 05:06:24 (2852835) [INFO]	Correction progress: 26.0%
+2026-05-10 05:06:36 (2852835) [INFO]	Correction progress: 27.0%
+2026-05-10 05:07:28 (2852835) [INFO]	Correction progress: 28.0%
+2026-05-10 05:09:37 (2852835) [INFO]	Correction progress: 29.0%
+2026-05-10 05:12:27 (2852835) [INFO]	Correction progress: 30.0%
+2026-05-10 05:12:45 (2852835) [INFO]	Correction progress: 31.0%
+2026-05-10 05:12:47 (2852835) [INFO]	Correction progress: 32.0%
+2026-05-10 05:12:50 (2852835) [INFO]	Correction progress: 33.0%
+2026-05-10 05:13:01 (2852835) [INFO]	Correction progress: 34.0%
+2026-05-10 05:15:31 (2852835) [INFO]	Correction progress: 35.0%
+2026-05-10 05:16:28 (2852835) [INFO]	Correction progress: 36.0%
+2026-05-10 05:19:00 (2852835) [INFO]	Correction progress: 37.0%
+2026-05-10 05:19:05 (2852835) [INFO]	Correction progress: 38.0%
+2026-05-10 05:19:14 (2852835) [INFO]	Correction progress: 39.0%
+2026-05-10 05:19:46 (2852835) [INFO]	Correction progress: 40.0%
+2026-05-10 05:20:36 (2852835) [INFO]	Correction progress: 41.0%
+2026-05-10 05:23:07 (2852835) [INFO]	Correction progress: 42.0%
+2026-05-10 05:25:02 (2852835) [INFO]	Correction progress: 43.0%
+2026-05-10 05:25:12 (2852835) [INFO]	Correction progress: 44.0%
+2026-05-10 05:25:18 (2852835) [INFO]	Correction progress: 45.0%
+2026-05-10 05:26:08 (2852835) [INFO]	Correction progress: 46.0%
+2026-05-10 05:26:21 (2852835) [INFO]	Correction progress: 47.0%
+2026-05-10 05:26:36 (2852835) [INFO]	Correction progress: 48.0%
+2026-05-10 05:31:15 (2852835) [INFO]	Correction progress: 49.0%
+2026-05-10 05:31:29 (2852835) [INFO]	Correction progress: 50.0%
+2026-05-10 05:32:23 (2852835) [INFO]	Correction progress: 51.0%
+2026-05-10 05:32:32 (2852835) [INFO]	Correction progress: 52.0%
+2026-05-10 05:32:43 (2852835) [INFO]	Correction progress: 53.0%
+2026-05-10 05:32:45 (2852835) [INFO]	Correction progress: 54.0%
+2026-05-10 05:33:53 (2852835) [INFO]	Correction progress: 55.0%
+2026-05-10 05:37:21 (2852835) [INFO]	Correction progress: 56.0%
+2026-05-10 05:37:58 (2852835) [INFO]	Correction progress: 57.0%
+2026-05-10 05:38:44 (2852835) [INFO]	Correction progress: 58.0%
+2026-05-10 05:38:44 (2852835) [INFO]	Correction progress: 59.0%
+2026-05-10 05:39:08 (2852835) [INFO]	Correction progress: 60.0%
+2026-05-10 05:40:52 (2852835) [INFO]	Correction progress: 61.0%
+2026-05-10 05:41:56 (2852835) [INFO]	Correction progress: 62.0%
+2026-05-10 05:43:42 (2852835) [INFO]	Correction progress: 63.0%
+2026-05-10 05:43:52 (2852835) [INFO]	Correction progress: 64.0%
+2026-05-10 05:45:02 (2852835) [INFO]	Correction progress: 65.0%
+2026-05-10 05:45:14 (2852835) [INFO]	Correction progress: 66.0%
+2026-05-10 05:47:00 (2852835) [INFO]	Correction progress: 67.0%
+2026-05-10 05:47:57 (2852835) [INFO]	Correction progress: 68.0%
+2026-05-10 05:49:59 (2852835) [INFO]	Correction progress: 69.0%
+2026-05-10 05:50:25 (2852835) [INFO]	Correction progress: 70.0%
+2026-05-10 05:50:37 (2852835) [INFO]	Correction progress: 71.0%
+2026-05-10 05:51:00 (2852835) [INFO]	Correction progress: 72.0%
+2026-05-10 05:51:26 (2852835) [INFO]	Correction progress: 73.0%
+2026-05-10 05:53:40 (2852835) [INFO]	Correction progress: 74.0%
+2026-05-10 05:56:08 (2852835) [INFO]	Correction progress: 75.0%
+2026-05-10 05:56:22 (2852835) [INFO]	Correction progress: 76.0%
+2026-05-10 05:56:50 (2852835) [INFO]	Correction progress: 77.0%
+2026-05-10 05:56:51 (2852835) [INFO]	Correction progress: 78.0%
+2026-05-10 05:57:19 (2852835) [INFO]	Correction progress: 79.0%
+2026-05-10 05:59:04 (2852835) [INFO]	Correction progress: 80.0%
+2026-05-10 06:00:45 (2852835) [INFO]	Correction progress: 81.0%
+2026-05-10 06:02:44 (2852835) [INFO]	Correction progress: 82.0%
+2026-05-10 06:03:54 (2852835) [INFO]	Correction progress: 83.0%
+2026-05-10 06:04:01 (2852835) [INFO]	Correction progress: 84.0%
+2026-05-10 06:04:37 (2852835) [INFO]	Correction progress: 85.0%
+2026-05-10 06:05:47 (2852835) [INFO]	Correction progress: 86.0%
+2026-05-10 06:06:20 (2852835) [INFO]	Correction progress: 87.0%
+2026-05-10 06:07:07 (2852835) [INFO]	Correction progress: 88.0%
+2026-05-10 06:08:58 (2852835) [INFO]	Correction progress: 89.0%
+2026-05-10 06:10:58 (2852835) [INFO]	Correction progress: 90.0%
+2026-05-10 06:11:28 (2852835) [INFO]	Correction progress: 91.0%
+2026-05-10 06:12:07 (2852835) [INFO]	Correction progress: 92.0%
+2026-05-10 06:13:12 (2852835) [INFO]	Correction progress: 93.0%
+2026-05-10 06:13:36 (2852835) [INFO]	Correction progress: 94.0%
+2026-05-10 06:14:15 (2852835) [INFO]	Correction progress: 95.0%
+2026-05-10 06:15:17 (2852835) [INFO]	Correction progress: 96.0%
+2026-05-10 06:16:51 (2852835) [INFO]	Correction progress: 97.0%
+2026-05-10 06:17:27 (2852835) [INFO]	Correction progress: 98.0%
+2026-05-10 06:17:36 (2852835) [INFO]	Correction progress: 99.0%
+2026-05-10 06:18:11 (2854780) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_uncorrected.bw (this might take some time)
+2026-05-10 06:18:11 (2852835) [INFO]	Correction progress: 100.0%
+2026-05-10 06:18:11 (2852835) [INFO]	Correction progress: done!
+2026-05-10 06:18:31 (2854780) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_bias.bw (this might take some time)
+2026-05-10 06:20:12 (2854780) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_expected.bw (this might take some time)
+2026-05-10 06:21:30 (2854780) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_WT.merged/LG_WT.merged_corrected.bw (this might take some time)
+
+2026-05-10 06:22:49 (2852835) [INFO]	Verifying bias correction
+2026-05-10 06:22:49 (2852835) [STATS]	BIAS	pre-bias variance forward:	0.0040474
+2026-05-10 06:22:49 (2852835) [STATS]	BIAS	post-bias variance forward:	0.0000489
+2026-05-10 06:22:49 (2852835) [STATS]	BIAS	pre-bias variance reverse:	0.0040445
+2026-05-10 06:22:49 (2852835) [STATS]	BIAS	post-bias variance reverse:	0.0000485
+
+2026-05-10 06:22:49 (2852835) [INFO]	Finished ATACorrect run (total time elapsed: 1:50:05.363397)
+Processing LG_KO.merged
+# TOBIAS 0.17.3 ATACorrect (run started 2026-05-10 06:23:04.514513)
+# Working directory: /projects/svankamamidi@xsede.org/Project_Tbet_ATACseq/2_TOBIAS_scripts
+# Command line call: TOBIAS ATACorrect --bam /pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LG_KO.merged.bam --genome /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa --peaks /pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed --blacklist /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed --outdir /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged --cores 8
+
+# ----- Input parameters -----
+# bam:	/pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LG_KO.merged.bam
+# genome:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa
+# peaks:	/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed
+# regions_in:	None
+# regions_out:	None
+# blacklist:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed
+# extend:	100
+# split_strands:	False
+# norm_off:	False
+# track_off:	[]
+# drop_chroms:	['chrM', 'chrMT', 'M', 'MT', 'Mito']
+# k_flank:	12
+# read_shift:	[4, -5]
+# bg_shift:	100
+# window:	100
+# score_mat:	DWM
+# bias_pkl:	None
+# prefix:	LG_KO.merged
+# outdir:	/pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged
+# cores:	8
+# split:	100
+# verbosity:	3
+
+
+# ----- Output files -----
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_uncorrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_bias.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_expected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_corrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_atacorrect.pdf
+
+
+2026-05-10 06:23:04 (2876386) [INFO]	----- Processing input data -----
+2026-05-10 06:23:04 (2876386) [INFO]	Reading info from .bam file
+2026-05-10 06:23:04 (2876386) [INFO]	Reading info from .fasta file
+2026-05-10 06:23:04 (2876386) [WARNING]	No additional chromosomes were removed. Consider using '--drop-chroms' to remove mitochondrial and/or other unwanted contigs.
+2026-05-10 06:23:04 (2876386) [INFO]	Processing input/output regions
+2026-05-10 06:23:11 (2876386) [STATS]	genome: 65 regions | 2730855475 bp | 100.00% coverage
+2026-05-10 06:23:11 (2876386) [STATS]	input_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 06:23:11 (2876386) [STATS]	output_regions: 145146 regions | 301639521 bp | 11.05% coverage
+2026-05-10 06:23:11 (2876386) [STATS]	peak_regions: 168236 regions | 269019900 bp | 9.85% coverage
+2026-05-10 06:23:11 (2876386) [STATS]	nonpeak_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 06:23:11 (2876386) [STATS]	blacklist_regions: 3435 regions | 238977200 bp | 8.75% coverage
+
+2026-05-10 06:23:11 (2876386) [INFO]	----- Estimating normalization factors -----
+2026-05-10 06:23:11 (2876386) [INFO]	Counting reads in peak regions
+2026-05-10 06:23:12 (2876386) [INFO]	Progress: 0%
+2026-05-10 06:23:27 (2876386) [INFO]	Progress: 1%
+2026-05-10 06:23:29 (2876386) [INFO]	Progress: 2%
+2026-05-10 06:23:31 (2876386) [INFO]	Progress: 3%
+2026-05-10 06:23:33 (2876386) [INFO]	Progress: 4%
+2026-05-10 06:23:33 (2876386) [INFO]	Progress: 5%
+2026-05-10 06:23:34 (2876386) [INFO]	Progress: 6%
+2026-05-10 06:23:35 (2876386) [INFO]	Progress: 7%
+2026-05-10 06:23:36 (2876386) [INFO]	Progress: 8%
+2026-05-10 06:23:46 (2876386) [INFO]	Progress: 9%
+2026-05-10 06:23:51 (2876386) [INFO]	Progress: 10%
+2026-05-10 06:23:56 (2876386) [INFO]	Progress: 11%
+2026-05-10 06:23:57 (2876386) [INFO]	Progress: 13%
+2026-05-10 06:23:59 (2876386) [INFO]	Progress: 14%
+2026-05-10 06:24:00 (2876386) [INFO]	Progress: 15%
+2026-05-10 06:24:02 (2876386) [INFO]	Progress: 16%
+2026-05-10 06:24:05 (2876386) [INFO]	Progress: 17%
+2026-05-10 06:24:16 (2876386) [INFO]	Progress: 19%
+2026-05-10 06:24:20 (2876386) [INFO]	Progress: 20%
+2026-05-10 06:24:20 (2876386) [INFO]	Progress: 21%
+2026-05-10 06:24:21 (2876386) [INFO]	Progress: 22%
+2026-05-10 06:24:23 (2876386) [INFO]	Progress: 24%
+2026-05-10 06:24:27 (2876386) [INFO]	Progress: 25%
+2026-05-10 06:24:35 (2876386) [INFO]	Progress: 26%
+2026-05-10 06:24:38 (2876386) [INFO]	Progress: 27%
+2026-05-10 06:24:38 (2876386) [INFO]	Progress: 28%
+2026-05-10 06:24:40 (2876386) [INFO]	Progress: 29%
+2026-05-10 06:24:41 (2876386) [INFO]	Progress: 30%
+2026-05-10 06:24:42 (2876386) [INFO]	Progress: 31%
+2026-05-10 06:24:44 (2876386) [INFO]	Progress: 32%
+2026-05-10 06:24:44 (2876386) [INFO]	Progress: 33%
+2026-05-10 06:24:55 (2876386) [INFO]	Progress: 34%
+2026-05-10 06:24:58 (2876386) [INFO]	Progress: 35%
+2026-05-10 06:24:59 (2876386) [INFO]	Progress: 36%
+2026-05-10 06:25:02 (2876386) [INFO]	Progress: 37%
+2026-05-10 06:25:03 (2876386) [INFO]	Progress: 38%
+2026-05-10 06:25:03 (2876386) [INFO]	Progress: 39%
+2026-05-10 06:25:05 (2876386) [INFO]	Progress: 40%
+2026-05-10 06:25:07 (2876386) [INFO]	Progress: 41%
+2026-05-10 06:25:16 (2876386) [INFO]	Progress: 42%
+2026-05-10 06:25:20 (2876386) [INFO]	Progress: 43%
+2026-05-10 06:25:21 (2876386) [INFO]	Progress: 44%
+2026-05-10 06:25:22 (2876386) [INFO]	Progress: 45%
+2026-05-10 06:25:22 (2876386) [INFO]	Progress: 46%
+2026-05-10 06:25:24 (2876386) [INFO]	Progress: 47%
+2026-05-10 06:25:30 (2876386) [INFO]	Progress: 48%
+2026-05-10 06:25:35 (2876386) [INFO]	Progress: 49%
+2026-05-10 06:25:39 (2876386) [INFO]	Progress: 50%
+2026-05-10 06:25:40 (2876386) [INFO]	Progress: 51%
+2026-05-10 06:25:41 (2876386) [INFO]	Progress: 52%
+2026-05-10 06:25:42 (2876386) [INFO]	Progress: 53%
+2026-05-10 06:25:43 (2876386) [INFO]	Progress: 54%
+2026-05-10 06:25:44 (2876386) [INFO]	Progress: 55%
+2026-05-10 06:25:52 (2876386) [INFO]	Progress: 56%
+2026-05-10 06:25:56 (2876386) [INFO]	Progress: 57%
+2026-05-10 06:25:57 (2876386) [INFO]	Progress: 58%
+2026-05-10 06:25:59 (2876386) [INFO]	Progress: 59%
+2026-05-10 06:26:03 (2876386) [INFO]	Progress: 60%
+2026-05-10 06:26:04 (2876386) [INFO]	Progress: 61%
+2026-05-10 06:26:06 (2876386) [INFO]	Progress: 62%
+2026-05-10 06:26:11 (2876386) [INFO]	Progress: 63%
+2026-05-10 06:26:13 (2876386) [INFO]	Progress: 64%
+2026-05-10 06:26:17 (2876386) [INFO]	Progress: 65%
+2026-05-10 06:26:17 (2876386) [INFO]	Progress: 66%
+2026-05-10 06:26:19 (2876386) [INFO]	Progress: 67%
+2026-05-10 06:26:25 (2876386) [INFO]	Progress: 68%
+2026-05-10 06:26:26 (2876386) [INFO]	Progress: 69%
+2026-05-10 06:26:28 (2876386) [INFO]	Progress: 70%
+2026-05-10 06:26:30 (2876386) [INFO]	Progress: 71%
+2026-05-10 06:26:32 (2876386) [INFO]	Progress: 72%
+2026-05-10 06:26:37 (2876386) [INFO]	Progress: 73%
+2026-05-10 06:26:38 (2876386) [INFO]	Progress: 74%
+2026-05-10 06:26:42 (2876386) [INFO]	Progress: 75%
+2026-05-10 06:26:46 (2876386) [INFO]	Progress: 76%
+2026-05-10 06:26:46 (2876386) [INFO]	Progress: 77%
+2026-05-10 06:26:47 (2876386) [INFO]	Progress: 78%
+2026-05-10 06:26:48 (2876386) [INFO]	Progress: 79%
+2026-05-10 06:26:55 (2876386) [INFO]	Progress: 80%
+2026-05-10 06:27:00 (2876386) [INFO]	Progress: 81%
+2026-05-10 06:27:00 (2876386) [INFO]	Progress: 82%
+2026-05-10 06:27:04 (2876386) [INFO]	Progress: 83%
+2026-05-10 06:27:09 (2876386) [INFO]	Progress: 84%
+2026-05-10 06:27:10 (2876386) [INFO]	Progress: 85%
+2026-05-10 06:27:14 (2876386) [INFO]	Progress: 86%
+2026-05-10 06:27:15 (2876386) [INFO]	Progress: 87%
+2026-05-10 06:27:18 (2876386) [INFO]	Progress: 88%
+2026-05-10 06:27:19 (2876386) [INFO]	Progress: 89%
+2026-05-10 06:27:24 (2876386) [INFO]	Progress: 90%
+2026-05-10 06:27:27 (2876386) [INFO]	Progress: 91%
+2026-05-10 06:27:30 (2876386) [INFO]	Progress: 92%
+2026-05-10 06:27:31 (2876386) [INFO]	Progress: 93%
+2026-05-10 06:27:37 (2876386) [INFO]	Progress: 94%
+2026-05-10 06:27:38 (2876386) [INFO]	Progress: 95%
+2026-05-10 06:27:38 (2876386) [INFO]	Progress: 96%
+2026-05-10 06:27:39 (2876386) [INFO]	Progress: 97%
+2026-05-10 06:27:40 (2876386) [INFO]	Progress: 98%
+2026-05-10 06:27:44 (2876386) [INFO]	Progress: 99%
+2026-05-10 06:27:47 (2876386) [INFO]	Progress: 100%
+
+2026-05-10 06:27:47 (2876386) [INFO]	Counting reads in nonpeak regions
+2026-05-10 06:27:47 (2876386) [INFO]	Progress: 0%
+2026-05-10 06:27:55 (2876386) [INFO]	Progress: 2%
+2026-05-10 06:27:55 (2876386) [INFO]	Progress: 3%
+2026-05-10 06:27:56 (2876386) [INFO]	Progress: 4%
+2026-05-10 06:27:56 (2876386) [INFO]	Progress: 7%
+2026-05-10 06:27:57 (2876386) [INFO]	Progress: 8%
+2026-05-10 06:28:00 (2876386) [INFO]	Progress: 9%
+2026-05-10 06:28:02 (2876386) [INFO]	Progress: 11%
+2026-05-10 06:28:03 (2876386) [INFO]	Progress: 12%
+2026-05-10 06:28:03 (2876386) [INFO]	Progress: 15%
+2026-05-10 06:28:04 (2876386) [INFO]	Progress: 16%
+2026-05-10 06:28:07 (2876386) [INFO]	Progress: 17%
+2026-05-10 06:28:08 (2876386) [INFO]	Progress: 18%
+2026-05-10 06:28:09 (2876386) [INFO]	Progress: 19%
+2026-05-10 06:28:11 (2876386) [INFO]	Progress: 20%
+2026-05-10 06:28:12 (2876386) [INFO]	Progress: 22%
+2026-05-10 06:28:13 (2876386) [INFO]	Progress: 24%
+2026-05-10 06:28:15 (2876386) [INFO]	Progress: 25%
+2026-05-10 06:28:16 (2876386) [INFO]	Progress: 26%
+2026-05-10 06:28:18 (2876386) [INFO]	Progress: 28%
+2026-05-10 06:28:20 (2876386) [INFO]	Progress: 29%
+2026-05-10 06:28:20 (2876386) [INFO]	Progress: 30%
+2026-05-10 06:28:21 (2876386) [INFO]	Progress: 31%
+2026-05-10 06:28:21 (2876386) [INFO]	Progress: 32%
+2026-05-10 06:28:22 (2876386) [INFO]	Progress: 33%
+2026-05-10 06:28:23 (2876386) [INFO]	Progress: 34%
+2026-05-10 06:28:25 (2876386) [INFO]	Progress: 35%
+2026-05-10 06:28:25 (2876386) [INFO]	Progress: 36%
+2026-05-10 06:28:26 (2876386) [INFO]	Progress: 37%
+2026-05-10 06:28:28 (2876386) [INFO]	Progress: 38%
+2026-05-10 06:28:28 (2876386) [INFO]	Progress: 39%
+2026-05-10 06:28:29 (2876386) [INFO]	Progress: 40%
+2026-05-10 06:28:29 (2876386) [INFO]	Progress: 41%
+2026-05-10 06:28:30 (2876386) [INFO]	Progress: 42%
+2026-05-10 06:28:32 (2876386) [INFO]	Progress: 43%
+2026-05-10 06:28:33 (2876386) [INFO]	Progress: 44%
+2026-05-10 06:28:35 (2876386) [INFO]	Progress: 45%
+2026-05-10 06:28:35 (2876386) [INFO]	Progress: 46%
+2026-05-10 06:28:36 (2876386) [INFO]	Progress: 47%
+2026-05-10 06:28:36 (2876386) [INFO]	Progress: 48%
+2026-05-10 06:28:37 (2876386) [INFO]	Progress: 49%
+2026-05-10 06:28:38 (2876386) [INFO]	Progress: 50%
+2026-05-10 06:28:39 (2876386) [INFO]	Progress: 51%
+2026-05-10 06:28:40 (2876386) [INFO]	Progress: 52%
+2026-05-10 06:28:42 (2876386) [INFO]	Progress: 53%
+2026-05-10 06:28:44 (2876386) [INFO]	Progress: 54%
+2026-05-10 06:28:44 (2876386) [INFO]	Progress: 56%
+2026-05-10 06:28:45 (2876386) [INFO]	Progress: 57%
+2026-05-10 06:28:45 (2876386) [INFO]	Progress: 58%
+2026-05-10 06:28:48 (2876386) [INFO]	Progress: 59%
+2026-05-10 06:28:48 (2876386) [INFO]	Progress: 60%
+2026-05-10 06:28:49 (2876386) [INFO]	Progress: 61%
+2026-05-10 06:28:52 (2876386) [INFO]	Progress: 63%
+2026-05-10 06:28:52 (2876386) [INFO]	Progress: 64%
+2026-05-10 06:28:53 (2876386) [INFO]	Progress: 66%
+2026-05-10 06:28:55 (2876386) [INFO]	Progress: 67%
+2026-05-10 06:28:55 (2876386) [INFO]	Progress: 69%
+2026-05-10 06:28:58 (2876386) [INFO]	Progress: 70%
+2026-05-10 06:29:00 (2876386) [INFO]	Progress: 72%
+2026-05-10 06:29:00 (2876386) [INFO]	Progress: 73%
+2026-05-10 06:29:01 (2876386) [INFO]	Progress: 75%
+2026-05-10 06:29:03 (2876386) [INFO]	Progress: 76%
+2026-05-10 06:29:03 (2876386) [INFO]	Progress: 77%
+2026-05-10 06:29:06 (2876386) [INFO]	Progress: 79%
+2026-05-10 06:29:07 (2876386) [INFO]	Progress: 80%
+2026-05-10 06:29:08 (2876386) [INFO]	Progress: 82%
+2026-05-10 06:29:08 (2876386) [INFO]	Progress: 83%
+2026-05-10 06:29:11 (2876386) [INFO]	Progress: 85%
+2026-05-10 06:29:14 (2876386) [INFO]	Progress: 87%
+2026-05-10 06:29:15 (2876386) [INFO]	Progress: 88%
+2026-05-10 06:29:16 (2876386) [INFO]	Progress: 89%
+2026-05-10 06:29:16 (2876386) [INFO]	Progress: 91%
+2026-05-10 06:29:18 (2876386) [INFO]	Progress: 92%
+2026-05-10 06:29:18 (2876386) [INFO]	Progress: 93%
+2026-05-10 06:29:21 (2876386) [INFO]	Progress: 95%
+2026-05-10 06:29:23 (2876386) [INFO]	Progress: 96%
+2026-05-10 06:29:24 (2876386) [INFO]	Progress: 97%
+2026-05-10 06:29:24 (2876386) [INFO]	Progress: 98%
+2026-05-10 06:29:25 (2876386) [INFO]	Progress: 99%
+2026-05-10 06:29:26 (2876386) [INFO]	Progress: 100%
+2026-05-10 06:29:26 (2876386) [STATS]	TOTAL_READS	181578987
+2026-05-10 06:29:26 (2876386) [STATS]	PEAK_READS	133698587
+2026-05-10 06:29:26 (2876386) [STATS]	NONPEAK_READS	47880400
+2026-05-10 06:29:26 (2876386) [STATS]	LIB_NORM	0.05507
+2026-05-10 06:29:26 (2876386) [STATS]	FRiP	0.73631
+2026-05-10 06:29:26 (2876386) [STATS]	CORRECTION_FACTOR:	0.07480
+
+2026-05-10 06:29:26 (2876386) [INFO]	Started estimation of sequence bias...
+2026-05-10 06:29:26 (2876386) [INFO]	Progress: 0%
+2026-05-10 06:29:35 (2876386) [INFO]	Progress: 1%
+2026-05-10 06:29:37 (2876386) [INFO]	Progress: 2%
+2026-05-10 06:29:38 (2876386) [INFO]	Progress: 5%
+2026-05-10 06:29:39 (2876386) [INFO]	Progress: 6%
+2026-05-10 06:29:39 (2876386) [INFO]	Progress: 7%
+2026-05-10 06:29:40 (2876386) [INFO]	Progress: 8%
+2026-05-10 06:29:46 (2876386) [INFO]	Progress: 9%
+2026-05-10 06:29:46 (2876386) [INFO]	Progress: 10%
+2026-05-10 06:29:47 (2876386) [INFO]	Progress: 11%
+2026-05-10 06:29:49 (2876386) [INFO]	Progress: 14%
+2026-05-10 06:29:49 (2876386) [INFO]	Progress: 15%
+2026-05-10 06:29:50 (2876386) [INFO]	Progress: 16%
+2026-05-10 06:29:54 (2876386) [INFO]	Progress: 17%
+2026-05-10 06:29:55 (2876386) [INFO]	Progress: 18%
+2026-05-10 06:29:55 (2876386) [INFO]	Progress: 19%
+2026-05-10 06:29:59 (2876386) [INFO]	Progress: 21%
+2026-05-10 06:30:01 (2876386) [INFO]	Progress: 22%
+2026-05-10 06:30:01 (2876386) [INFO]	Progress: 23%
+2026-05-10 06:30:02 (2876386) [INFO]	Progress: 24%
+2026-05-10 06:30:03 (2876386) [INFO]	Progress: 25%
+2026-05-10 06:30:05 (2876386) [INFO]	Progress: 26%
+2026-05-10 06:30:10 (2876386) [INFO]	Progress: 27%
+2026-05-10 06:30:11 (2876386) [INFO]	Progress: 28%
+2026-05-10 06:30:12 (2876386) [INFO]	Progress: 29%
+2026-05-10 06:30:12 (2876386) [INFO]	Progress: 30%
+2026-05-10 06:30:14 (2876386) [INFO]	Progress: 31%
+2026-05-10 06:30:15 (2876386) [INFO]	Progress: 32%
+2026-05-10 06:30:15 (2876386) [INFO]	Progress: 34%
+2026-05-10 06:30:16 (2876386) [INFO]	Progress: 35%
+2026-05-10 06:30:20 (2876386) [INFO]	Progress: 37%
+2026-05-10 06:30:22 (2876386) [INFO]	Progress: 38%
+2026-05-10 06:30:24 (2876386) [INFO]	Progress: 39%
+2026-05-10 06:30:25 (2876386) [INFO]	Progress: 40%
+2026-05-10 06:30:26 (2876386) [INFO]	Progress: 41%
+2026-05-10 06:30:26 (2876386) [INFO]	Progress: 42%
+2026-05-10 06:30:27 (2876386) [INFO]	Progress: 43%
+2026-05-10 06:30:31 (2876386) [INFO]	Progress: 44%
+2026-05-10 06:30:31 (2876386) [INFO]	Progress: 45%
+2026-05-10 06:30:33 (2876386) [INFO]	Progress: 46%
+2026-05-10 06:30:34 (2876386) [INFO]	Progress: 47%
+2026-05-10 06:30:35 (2876386) [INFO]	Progress: 48%
+2026-05-10 06:30:36 (2876386) [INFO]	Progress: 49%
+2026-05-10 06:30:37 (2876386) [INFO]	Progress: 50%
+2026-05-10 06:30:39 (2876386) [INFO]	Progress: 51%
+2026-05-10 06:30:40 (2876386) [INFO]	Progress: 52%
+2026-05-10 06:30:41 (2876386) [INFO]	Progress: 53%
+2026-05-10 06:30:44 (2876386) [INFO]	Progress: 54%
+2026-05-10 06:30:46 (2876386) [INFO]	Progress: 55%
+2026-05-10 06:30:46 (2876386) [INFO]	Progress: 57%
+2026-05-10 06:30:47 (2876386) [INFO]	Progress: 58%
+2026-05-10 06:30:50 (2876386) [INFO]	Progress: 59%
+2026-05-10 06:30:51 (2876386) [INFO]	Progress: 60%
+2026-05-10 06:30:54 (2876386) [INFO]	Progress: 62%
+2026-05-10 06:30:57 (2876386) [INFO]	Progress: 63%
+2026-05-10 06:30:59 (2876386) [INFO]	Progress: 65%
+2026-05-10 06:30:59 (2876386) [INFO]	Progress: 66%
+2026-05-10 06:31:01 (2876386) [INFO]	Progress: 67%
+2026-05-10 06:31:02 (2876386) [INFO]	Progress: 68%
+2026-05-10 06:31:02 (2876386) [INFO]	Progress: 69%
+2026-05-10 06:31:03 (2876386) [INFO]	Progress: 70%
+2026-05-10 06:31:07 (2876386) [INFO]	Progress: 72%
+2026-05-10 06:31:10 (2876386) [INFO]	Progress: 73%
+2026-05-10 06:31:11 (2876386) [INFO]	Progress: 75%
+2026-05-10 06:31:13 (2876386) [INFO]	Progress: 77%
+2026-05-10 06:31:14 (2876386) [INFO]	Progress: 78%
+2026-05-10 06:31:18 (2876386) [INFO]	Progress: 79%
+2026-05-10 06:31:18 (2876386) [INFO]	Progress: 80%
+2026-05-10 06:31:20 (2876386) [INFO]	Progress: 82%
+2026-05-10 06:31:21 (2876386) [INFO]	Progress: 83%
+2026-05-10 06:31:21 (2876386) [INFO]	Progress: 84%
+2026-05-10 06:31:25 (2876386) [INFO]	Progress: 85%
+2026-05-10 06:31:25 (2876386) [INFO]	Progress: 86%
+2026-05-10 06:31:28 (2876386) [INFO]	Progress: 87%
+2026-05-10 06:31:29 (2876386) [INFO]	Progress: 88%
+2026-05-10 06:31:31 (2876386) [INFO]	Progress: 90%
+2026-05-10 06:31:32 (2876386) [INFO]	Progress: 91%
+2026-05-10 06:31:33 (2876386) [INFO]	Progress: 92%
+2026-05-10 06:31:36 (2876386) [INFO]	Progress: 93%
+2026-05-10 06:31:36 (2876386) [INFO]	Progress: 94%
+2026-05-10 06:31:38 (2876386) [INFO]	Progress: 95%
+2026-05-10 06:31:40 (2876386) [INFO]	Progress: 96%
+2026-05-10 06:31:40 (2876386) [INFO]	Progress: 97%
+2026-05-10 06:31:43 (2876386) [INFO]	Progress: 98%
+2026-05-10 06:31:46 (2876386) [INFO]	Progress: 99%
+2026-05-10 06:31:46 (2876386) [INFO]	Progress: 100%
+2026-05-10 06:31:46 (2876386) [INFO]	Finalizing bias motif for scoring
+
+2026-05-10 06:31:47 (2876386) [INFO]	----- Correcting reads from .bam within output regions -----
+2026-05-10 06:31:47 (2876386) [INFO]	Correction progress: 0%
+2026-05-10 06:38:00 (2876386) [INFO]	Correction progress: 1.0%
+2026-05-10 06:38:05 (2876386) [INFO]	Correction progress: 2.0%
+2026-05-10 06:38:08 (2876386) [INFO]	Correction progress: 3.0%
+2026-05-10 06:38:22 (2876386) [INFO]	Correction progress: 4.0%
+2026-05-10 06:38:22 (2876386) [INFO]	Correction progress: 5.0%
+2026-05-10 06:38:32 (2876386) [INFO]	Correction progress: 6.0%
+2026-05-10 06:38:43 (2876386) [INFO]	Correction progress: 7.0%
+2026-05-10 06:43:53 (2876386) [INFO]	Correction progress: 8.0%
+2026-05-10 06:45:00 (2876386) [INFO]	Correction progress: 9.0%
+2026-05-10 06:45:29 (2876386) [INFO]	Correction progress: 10.0%
+2026-05-10 06:45:45 (2876386) [INFO]	Correction progress: 11.0%
+2026-05-10 06:46:18 (2876386) [INFO]	Correction progress: 12.0%
+2026-05-10 06:46:18 (2876386) [INFO]	Correction progress: 13.0%
+2026-05-10 06:47:04 (2876386) [INFO]	Correction progress: 14.0%
+2026-05-10 06:51:18 (2876386) [INFO]	Correction progress: 15.0%
+2026-05-10 06:52:25 (2876386) [INFO]	Correction progress: 16.0%
+2026-05-10 06:52:41 (2876386) [INFO]	Correction progress: 17.0%
+2026-05-10 06:52:59 (2876386) [INFO]	Correction progress: 18.0%
+2026-05-10 06:53:10 (2876386) [INFO]	Correction progress: 19.0%
+2026-05-10 06:54:14 (2876386) [INFO]	Correction progress: 20.0%
+2026-05-10 06:54:34 (2876386) [INFO]	Correction progress: 21.0%
+2026-05-10 06:57:57 (2876386) [INFO]	Correction progress: 22.0%
+2026-05-10 06:59:15 (2876386) [INFO]	Correction progress: 23.0%
+2026-05-10 07:00:02 (2876386) [INFO]	Correction progress: 24.0%
+2026-05-10 07:00:03 (2876386) [INFO]	Correction progress: 25.0%
+2026-05-10 07:00:09 (2876386) [INFO]	Correction progress: 26.0%
+2026-05-10 07:00:30 (2876386) [INFO]	Correction progress: 27.0%
+2026-05-10 07:01:18 (2876386) [INFO]	Correction progress: 28.0%
+2026-05-10 07:03:42 (2876386) [INFO]	Correction progress: 29.0%
+2026-05-10 07:06:15 (2876386) [INFO]	Correction progress: 30.0%
+2026-05-10 07:06:35 (2876386) [INFO]	Correction progress: 31.0%
+2026-05-10 07:06:39 (2876386) [INFO]	Correction progress: 32.0%
+2026-05-10 07:06:47 (2876386) [INFO]	Correction progress: 33.0%
+2026-05-10 07:07:08 (2876386) [INFO]	Correction progress: 34.0%
+2026-05-10 07:09:32 (2876386) [INFO]	Correction progress: 35.0%
+2026-05-10 07:10:41 (2876386) [INFO]	Correction progress: 36.0%
+2026-05-10 07:13:06 (2876386) [INFO]	Correction progress: 37.0%
+2026-05-10 07:13:14 (2876386) [INFO]	Correction progress: 39.0%
+2026-05-10 07:14:08 (2876386) [INFO]	Correction progress: 40.0%
+2026-05-10 07:14:38 (2876386) [INFO]	Correction progress: 41.0%
+2026-05-10 07:17:18 (2876386) [INFO]	Correction progress: 42.0%
+2026-05-10 07:19:19 (2876386) [INFO]	Correction progress: 43.0%
+2026-05-10 07:19:22 (2876386) [INFO]	Correction progress: 44.0%
+2026-05-10 07:19:40 (2876386) [INFO]	Correction progress: 45.0%
+2026-05-10 07:20:26 (2876386) [INFO]	Correction progress: 46.0%
+2026-05-10 07:20:46 (2876386) [INFO]	Correction progress: 47.0%
+2026-05-10 07:20:55 (2876386) [INFO]	Correction progress: 48.0%
+2026-05-10 07:25:39 (2876386) [INFO]	Correction progress: 49.0%
+2026-05-10 07:25:59 (2876386) [INFO]	Correction progress: 50.0%
+2026-05-10 07:26:48 (2876386) [INFO]	Correction progress: 51.0%
+2026-05-10 07:26:59 (2876386) [INFO]	Correction progress: 52.0%
+2026-05-10 07:27:12 (2876386) [INFO]	Correction progress: 53.0%
+2026-05-10 07:27:17 (2876386) [INFO]	Correction progress: 54.0%
+2026-05-10 07:28:19 (2876386) [INFO]	Correction progress: 55.0%
+2026-05-10 07:32:03 (2876386) [INFO]	Correction progress: 56.0%
+2026-05-10 07:32:29 (2876386) [INFO]	Correction progress: 57.0%
+2026-05-10 07:33:23 (2876386) [INFO]	Correction progress: 58.0%
+2026-05-10 07:33:29 (2876386) [INFO]	Correction progress: 59.0%
+2026-05-10 07:33:49 (2876386) [INFO]	Correction progress: 60.0%
+2026-05-10 07:35:25 (2876386) [INFO]	Correction progress: 61.0%
+2026-05-10 07:36:32 (2876386) [INFO]	Correction progress: 62.0%
+2026-05-10 07:38:30 (2876386) [INFO]	Correction progress: 63.0%
+2026-05-10 07:38:36 (2876386) [INFO]	Correction progress: 64.0%
+2026-05-10 07:39:54 (2876386) [INFO]	Correction progress: 65.0%
+2026-05-10 07:40:07 (2876386) [INFO]	Correction progress: 66.0%
+2026-05-10 07:41:50 (2876386) [INFO]	Correction progress: 67.0%
+2026-05-10 07:42:37 (2876386) [INFO]	Correction progress: 68.0%
+2026-05-10 07:44:50 (2876386) [INFO]	Correction progress: 69.0%
+2026-05-10 07:45:10 (2876386) [INFO]	Correction progress: 70.0%
+2026-05-10 07:45:37 (2876386) [INFO]	Correction progress: 71.0%
+2026-05-10 07:46:00 (2876386) [INFO]	Correction progress: 72.0%
+2026-05-10 07:46:25 (2876386) [INFO]	Correction progress: 73.0%
+2026-05-10 07:48:41 (2876386) [INFO]	Correction progress: 74.0%
+2026-05-10 07:50:55 (2876386) [INFO]	Correction progress: 75.0%
+2026-05-10 07:51:19 (2876386) [INFO]	Correction progress: 76.0%
+2026-05-10 07:51:54 (2876386) [INFO]	Correction progress: 77.0%
+2026-05-10 07:52:03 (2876386) [INFO]	Correction progress: 78.0%
+2026-05-10 07:52:17 (2876386) [INFO]	Correction progress: 79.0%
+2026-05-10 07:54:09 (2876386) [INFO]	Correction progress: 80.0%
+2026-05-10 07:55:57 (2876386) [INFO]	Correction progress: 81.0%
+2026-05-10 07:57:43 (2876386) [INFO]	Correction progress: 82.0%
+2026-05-10 07:59:05 (2876386) [INFO]	Correction progress: 83.0%
+2026-05-10 07:59:14 (2876386) [INFO]	Correction progress: 84.0%
+2026-05-10 07:59:45 (2876386) [INFO]	Correction progress: 85.0%
+2026-05-10 08:00:53 (2876386) [INFO]	Correction progress: 86.0%
+2026-05-10 08:01:30 (2876386) [INFO]	Correction progress: 87.0%
+2026-05-10 08:02:25 (2876386) [INFO]	Correction progress: 88.0%
+2026-05-10 08:04:09 (2876386) [INFO]	Correction progress: 89.0%
+2026-05-10 08:06:23 (2876386) [INFO]	Correction progress: 90.0%
+2026-05-10 08:06:43 (2876386) [INFO]	Correction progress: 91.0%
+2026-05-10 08:07:16 (2876386) [INFO]	Correction progress: 92.0%
+2026-05-10 08:08:28 (2876386) [INFO]	Correction progress: 93.0%
+2026-05-10 08:08:52 (2876386) [INFO]	Correction progress: 94.0%
+2026-05-10 08:09:37 (2876386) [INFO]	Correction progress: 95.0%
+2026-05-10 08:10:34 (2876386) [INFO]	Correction progress: 96.0%
+2026-05-10 08:12:24 (2876386) [INFO]	Correction progress: 97.0%
+2026-05-10 08:12:52 (2876386) [INFO]	Correction progress: 98.0%
+2026-05-10 08:12:56 (2876386) [INFO]	Correction progress: 99.0%
+2026-05-10 08:13:29 (2878941) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_uncorrected.bw (this might take some time)
+2026-05-10 08:13:29 (2876386) [INFO]	Correction progress: 100.0%
+2026-05-10 08:13:29 (2876386) [INFO]	Correction progress: done!
+2026-05-10 08:13:53 (2878941) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_bias.bw (this might take some time)
+2026-05-10 08:15:38 (2878941) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_expected.bw (this might take some time)
+2026-05-10 08:16:59 (2878941) [INFO]	Closing /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LG_KO.merged/LG_KO.merged_corrected.bw (this might take some time)
+
+2026-05-10 08:18:21 (2876386) [INFO]	Verifying bias correction
+2026-05-10 08:18:21 (2876386) [STATS]	BIAS	pre-bias variance forward:	0.0040041
+2026-05-10 08:18:21 (2876386) [STATS]	BIAS	post-bias variance forward:	0.0000544
+2026-05-10 08:18:22 (2876386) [STATS]	BIAS	pre-bias variance reverse:	0.0040028
+2026-05-10 08:18:22 (2876386) [STATS]	BIAS	post-bias variance reverse:	0.0000542
+
+2026-05-10 08:18:22 (2876386) [INFO]	Finished ATACorrect run (total time elapsed: 1:55:18.052152)
+Processing LA21_WT.merged
+# TOBIAS 0.17.3 ATACorrect (run started 2026-05-10 08:18:27.786466)
+# Working directory: /projects/svankamamidi@xsede.org/Project_Tbet_ATACseq/2_TOBIAS_scripts
+# Command line call: TOBIAS ATACorrect --bam /pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LA21_WT.merged.bam --genome /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa --peaks /pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed --blacklist /pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed --outdir /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged --cores 8
+
+# ----- Input parameters -----
+# bam:	/pl/active/getahun_lab/Project_tbet_ATACseq/merged_bams/LA21_WT.merged.bam
+# genome:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10.fa
+# peaks:	/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks/ALL8_union_peaks.bed
+# regions_in:	None
+# regions_out:	None
+# blacklist:	/pl/active/getahun_lab/atacseq_refdata/genomes/mm10_primary/mm10-blacklist.v2.bed
+# extend:	100
+# split_strands:	False
+# norm_off:	False
+# track_off:	[]
+# drop_chroms:	['chrM', 'chrMT', 'M', 'MT', 'Mito']
+# k_flank:	12
+# read_shift:	[4, -5]
+# bg_shift:	100
+# window:	100
+# score_mat:	DWM
+# bias_pkl:	None
+# prefix:	LA21_WT.merged
+# outdir:	/pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged
+# cores:	8
+# split:	100
+# verbosity:	3
+
+
+# ----- Output files -----
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged/LA21_WT.merged_uncorrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged/LA21_WT.merged_bias.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged/LA21_WT.merged_expected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged/LA21_WT.merged_corrected.bw
+# /pl/active/getahun_lab/Project_tbet_ATACseq/TOBIAS/ATACorrect_Output/LA21_WT.merged/LA21_WT.merged_atacorrect.pdf
+
+
+2026-05-10 08:18:27 (2901070) [INFO]	----- Processing input data -----
+2026-05-10 08:18:27 (2901070) [INFO]	Reading info from .bam file
+2026-05-10 08:18:27 (2901070) [INFO]	Reading info from .fasta file
+2026-05-10 08:18:27 (2901070) [WARNING]	No additional chromosomes were removed. Consider using '--drop-chroms' to remove mitochondrial and/or other unwanted contigs.
+2026-05-10 08:18:27 (2901070) [INFO]	Processing input/output regions
+2026-05-10 08:18:34 (2901070) [STATS]	genome: 65 regions | 2730855475 bp | 100.00% coverage
+2026-05-10 08:18:34 (2901070) [STATS]	input_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 08:18:34 (2901070) [STATS]	output_regions: 145146 regions | 301639521 bp | 11.05% coverage
+2026-05-10 08:18:34 (2901070) [STATS]	peak_regions: 168236 regions | 269019900 bp | 9.85% coverage
+2026-05-10 08:18:34 (2901070) [STATS]	nonpeak_regions: 197429 regions | 2222858375 bp | 81.40% coverage
+2026-05-10 08:18:34 (2901070) [STATS]	blacklist_regions: 3435 regions | 238977200 bp | 8.75% coverage
+
+2026-05-10 08:18:35 (2901070) [INFO]	----- Estimating normalization factors -----
+2026-05-10 08:18:35 (2901070) [INFO]	Counting reads in peak regions
+2026-05-10 08:18:35 (2901070) [INFO]	Progress: 0%
+2026-05-10 08:18:46 (2901070) [INFO]	Progress: 2%
+2026-05-10 08:18:47 (2901070) [INFO]	Progress: 4%
+2026-05-10 08:18:48 (2901070) [INFO]	Progress: 6%
+2026-05-10 08:18:49 (2901070) [INFO]	Progress: 7%
+2026-05-10 08:18:50 (2901070) [INFO]	Progress: 8%
+2026-05-10 08:18:59 (2901070) [INFO]	Progress: 10%
+2026-05-10 08:19:00 (2901070) [INFO]	Progress: 11%
+2026-05-10 08:19:00 (2901070) [INFO]	Progress: 12%
+2026-05-10 08:19:02 (2901070) [INFO]	Progress: 14%
+2026-05-10 08:19:05 (2901070) [INFO]	Progress: 15%
+2026-05-10 08:19:07 (2901070) [INFO]	Progress: 16%
+2026-05-10 08:19:11 (2901070) [INFO]	Progress: 17%
+2026-05-10 08:19:12 (2901070) [INFO]	Progress: 18%
+2026-05-10 08:19:12 (2901070) [INFO]	Progress: 19%
+2026-05-10 08:19:13 (2901070) [INFO]	Progress: 20%
+2026-05-10 08:19:16 (2901070) [INFO]	Progress: 21%
+2026-05-10 08:19:16 (2901070) [INFO]	Progress: 22%
+2026-05-10 08:19:18 (2901070) [INFO]	Progress: 23%
+2026-05-10 08:19:20 (2901070) [INFO]	Progress: 24%
+2026-05-10 08:19:23 (2901070) [INFO]	Progress: 25%
+2026-05-10 08:19:24 (2901070) [INFO]	Progress: 26%
+2026-05-10 08:19:25 (2901070) [INFO]	Progress: 28%
+2026-05-10 08:19:28 (2901070) [INFO]	Progress: 29%
+2026-05-10 08:19:29 (2901070) [INFO]	Progress: 30%
+2026-05-10 08:19:30 (2901070) [INFO]	Progress: 31%
+2026-05-10 08:19:33 (2901070) [INFO]	Progress: 32%
+2026-05-10 08:19:33 (2901070) [INFO]	Progress: 33%
+2026-05-10 08:19:37 (2901070) [INFO]	Progress: 36%
+2026-05-10 08:19:40 (2901070) [INFO]	Progress: 37%
+2026-05-10 08:19:42 (2901070) [INFO]	Progress: 38%

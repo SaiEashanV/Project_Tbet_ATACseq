@@ -1,0 +1,543 @@
+---
+title: "Tbet_ChromVAR"
+author: "Eashan"
+date: "2026-05-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include =TRUE, echo=TRUE, message = FALSE}
+suppressPackageStartupMessages({
+  library(chromVAR)
+  library(rtracklayer)
+  library(BSgenome.Mmusculus.UCSC.mm10)
+  library(motifmatchr)
+  library(BiocParallel)
+  library(JASPAR2020)
+  library(TFBSTools)
+  library(ggplot2)
+  library(pheatmap)
+  library(RColorBrewer)
+  library(ggrepel)
+  library(SummarizedExperiment)
+  library(limma)
+  library(openxlsx)
+})
+register(MulticoreParam(workers = 60))
+```
+
+```{r, include =TRUE, echo=TRUE, message = FALSE}
+## ---- paths ----
+bam_dir  <- "/pl/active/getahun_lab/Project_tbet_ATACseq/bam_files"
+peak_dir <- "/pl/active/getahun_lab/Project_tbet_ATACseq/consensus_peaks"
+meta_file <- "/pl/active/getahun_lab/Project_tbet_ATACseq/metadata.tsv"
+union_bed <- file.path(peak_dir, "ALL8_union_peaks.bed")
+out_path  <- "/pl/active/getahun_lab/Project_tbet_ATACseq/chromVAR_output"
+
+stopifnot(dir.exists(bam_dir))
+stopifnot(file.exists(union_bed))
+stopifnot(file.exists(meta_file))
+dir.create(out_path, showWarnings = FALSE, recursive = TRUE)
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 1) load union peaks + resize to 500 bp ----
+peaks <- import(union_bed)
+peaks <- resize(peaks, width = 500, fix = "center")
+message("Union peak count: ", length(peaks))
+```
+
+```{r, include =TRUE, echo=TRUE, message = FALSE}
+## ---- 2) collect BAMs ----
+bam_files <- sort(list.files(bam_dir, pattern = "sorted\\.rmdup\\.qc\\.removebl\\.bam$", full.names = TRUE))
+message("Found BAMs: ", length(bam_files))
+stopifnot(length(bam_files) == 24)
+## check indexes (.bam.bai)
+stopifnot(all(file.exists(paste0(bam_files, ".bai"))))
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 3) counts ----
+counts <- getCounts(
+  bam_files,
+  peaks,
+  paired = TRUE,
+  format = "bam"
+)
+message("Counts object dim (peaks x samples): ", nrow(counts), " x ", ncol(counts))
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 4) GC bias + filter peaks ----
+counts <- addGCBias(counts, genome = BSgenome.Mmusculus.UCSC.mm10)
+counts <- filterPeaks(counts)
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 5) motifs ----
+opts   <- list(tax_group = "vertebrates", collection = "CORE")
+motifs <- TFBSTools::getMatrixSet(JASPAR2020::JASPAR2020, opts)
+motif_ix <- matchMotifs(motifs, counts, genome = BSgenome.Mmusculus.UCSC.mm10)
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 6) deviations ----
+dev <- computeDeviations(counts, annotations = motif_ix)
+```
+
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+## ---- 7) save ----
+saveRDS(counts, file = file.path(out_path, "chromVAR_counts_ALL24_unionPeaks_500bp.rds"))
+saveRDS(dev,    file = file.path(out_path, "chromVAR_deviations_ALL24_unionPeaks_500bp.rds"))
+message("Saved counts and deviations to: ", out_path)
+```
+
+```{r load_existing, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Load previously saved objects (skip recomputation) ----
+counts_rds <- file.path(out_path, "chromVAR_counts_ALL24_unionPeaks_500bp.rds")
+dev_rds    <- file.path(out_path, "chromVAR_deviations_ALL24_unionPeaks_500bp.rds")
+
+if (file.exists(counts_rds) && file.exists(dev_rds)) {
+  message("Loading existing chromVAR objects...")
+  counts <- readRDS(counts_rds)
+  dev    <- readRDS(dev_rds)
+  message("Counts dim: ", nrow(counts), " peaks x ", ncol(counts), " samples")
+  message("Deviations dim: ", nrow(deviations(dev)), " motifs x ", ncol(deviations(dev)), " samples")
+} else {
+  stop("Saved chromVAR RDS files not found. Run chunks 1-7 first.")
+}
+
+tf_dev <- deviations(dev)
+```
+
+```{r convert_jaspar_names, echo=TRUE}
+## ---- JASPAR ID -> TF name ----
+opts   <- list(tax_group = "vertebrates", collection = "CORE")
+motifs <- TFBSTools::getMatrixSet(JASPAR2020::JASPAR2020, opts)
+
+id_to_name <- setNames(TFBSTools::name(motifs), TFBSTools::ID(motifs))
+new_names <- id_to_name[rownames(tf_dev)]
+new_names[is.na(new_names)] <- rownames(tf_dev)
+rownames(tf_dev) <- make.unique(new_names)
+
+head(rownames(tf_dev))
+```
+
+```{r load_metadata, include=TRUE, echo=TRUE, message=FALSE}
+## ---- metadata ----
+metadata <- read.csv(meta_file, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+rownames(metadata) <- metadata$sample_id
+
+metadata$genotype  <- factor(metadata$genotype)
+metadata$condition <- factor(metadata$condition, levels = c("L", "LG", "LA21", "LA21G"))
+metadata$replicate <- factor(metadata$replicate)
+metadata$seq_batch <- factor(metadata$seq_batch)
+
+## rownames to match chromVAR BAM basenames
+meta_df <- metadata
+rownames(meta_df) <- paste0(rownames(meta_df), ".sorted.rmdup.qc.removebl.bam")
+```
+
+```{r clean_sample_names, include=TRUE, echo=TRUE, message=FALSE}
+## ---- align tf_dev column names to metadata rownames ----
+tf_samples_raw <- colnames(tf_dev)
+tf_sample_id   <- sub("\\.sorted\\.rmdup\\.qc\\.removebl\\.bam$", "", basename(tf_samples_raw))
+colnames(tf_dev) <- tf_sample_id
+
+cat("tf_dev samples:", length(colnames(tf_dev)), "\n")
+cat("metadata samples:", length(rownames(metadata)), "\n")
+cat("Missing in metadata:", length(setdiff(colnames(tf_dev), rownames(metadata))), "\n")
+cat("Missing in tf_dev:", length(setdiff(rownames(metadata), colnames(tf_dev))), "\n")
+stopifnot(all(colnames(tf_dev) %in% rownames(metadata)))
+
+meta <- metadata[colnames(tf_dev), , drop = FALSE]
+```
+
+```{r pca_raw, include=TRUE, echo=TRUE, message=FALSE}
+## ---- PCA (raw deviations) ----
+pca_raw <- prcomp(t(tf_dev), scale. = TRUE)
+pct_raw <- (pca_raw$sdev^2) / sum(pca_raw$sdev^2) * 100
+
+df_pca <- data.frame(
+  sample    = colnames(tf_dev),
+  PC1       = pca_raw$x[, 1],
+  PC2       = pca_raw$x[, 2],
+  genotype  = meta$genotype,
+  condition = meta$condition,
+  batch     = meta$seq_batch
+)
+
+ggplot(df_pca, aes(PC1, PC2, color = condition, shape = genotype, label = sample)) +
+  geom_point(size = 3) +
+  ggrepel::geom_text_repel(size = 2.8, max.overlaps = Inf) +
+  labs(
+    title = "chromVAR PCA (raw z-scores)",
+    x = paste0("PC1 (", round(pct_raw[1], 1), "%)"),
+    y = paste0("PC2 (", round(pct_raw[2], 1), "%)")
+  ) +
+  theme_bw()
+```
+
+```{r variability, include=TRUE, echo=TRUE, message=FALSE}
+## ---- TF variability ----
+var_df <- computeVariability(dev)
+vp     <- plotVariability(var_df, use_plotly = FALSE)
+```
+
+```{r batch_correction, include=TRUE, echo=TRUE, message=FALSE}
+## ---- limma batch correction ----
+samps    <- sub("\\.sorted\\.rmdup\\.qc\\.removebl\\.bam$", "", basename(colnames(assays(dev)$z)))
+meta_use <- metadata[samps, , drop = FALSE]
+colData(dev) <- S4Vectors::DataFrame(meta_use)
+
+Z         <- assays(dev)$z
+genotype  <- droplevels(factor(meta_use$genotype))
+condition <- droplevels(factor(meta_use$condition))
+batch     <- droplevels(factor(meta_use$seq_batch))
+
+# batch correct preserving genotype + condition
+design_bc <- model.matrix(~ genotype + condition)
+
+if (nlevels(batch) > 1) {
+  Z_bc <- removeBatchEffect(Z, batch = batch, design = design_bc)
+} else {
+  message("Only one batch; skipping batch correction.")
+  Z_bc <- Z
+}
+
+## ---- PCA post batch correction ----
+pca_bc  <- prcomp(t(Z_bc), center = TRUE, scale. = FALSE)
+pct_bc  <- (pca_bc$sdev^2) / sum(pca_bc$sdev^2) * 100
+
+df_bc <- data.frame(
+  sample    = samps,
+  PC1       = pca_bc$x[, 1],
+  PC2       = pca_bc$x[, 2],
+  genotype  = genotype,
+  condition = condition,
+  batch     = batch
+)
+
+pcs <- ggplot(df_bc, aes(PC1, PC2, color = condition, shape = genotype, label = sample)) +
+  geom_point(size = 3) +
+  ggrepel::geom_text_repel(size = 2.8, max.overlaps = Inf) +
+  labs(
+    title = "chromVAR PCA (batch-corrected z-scores)",
+    x = paste0("PC1 (", round(pct_bc[1], 1), "%)"),
+    y = paste0("PC2 (", round(pct_bc[2], 1), "%)")
+  ) +
+  theme_bw()
+```
+
+```{r heatmap, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Heatmap: top variable TFs (batch-corrected) ----
+mat <- Z_bc
+id2tf <- setNames(TFBSTools::name(motifs), TFBSTools::ID(motifs))
+rownames(mat) <- ifelse(rownames(mat) %in% names(id2tf), id2tf[rownames(mat)], rownames(mat))
+rownames(mat) <- make.unique(rownames(mat))
+
+ann_col <- data.frame(genotype = genotype, condition = condition, batch = batch)
+rownames(ann_col) <- colnames(mat)
+
+hmap <- pheatmap(
+  mat,
+  annotation_col = ann_col,
+  cluster_rows   = TRUE,
+  cluster_cols   = TRUE,
+  show_rownames  = FALSE,
+  show_colnames  = TRUE,
+  fontsize_col   = 9,
+  main           = "chromVAR all TFs (batch-corrected z-scores)"
+)
+```
+
+```{r update_tf_dev_bc, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Apply TF names to Z_bc and realign ----
+tf_dev <- Z_bc
+id2tf  <- setNames(TFBSTools::name(motifs), TFBSTools::ID(motifs))
+rownames(tf_dev) <- ifelse(rownames(tf_dev) %in% names(id2tf), id2tf[rownames(tf_dev)], rownames(tf_dev))
+rownames(tf_dev) <- make.unique(rownames(tf_dev))
+
+colnames(tf_dev) <- sub("\\.sorted\\.rmdup\\.qc\\.removebl\\.bam$", "", basename(colnames(tf_dev)))
+stopifnot(all(colnames(tf_dev) %in% rownames(metadata)))
+meta <- metadata[colnames(tf_dev), , drop = FALSE]
+```
+
+```{r ko_vs_wt_barplots, include=TRUE, echo=TRUE, message=FALSE}
+make_delta <- function(cond) {
+  idx_wt <- which(meta$condition == cond & meta$genotype == "WT")
+  idx_ko <- which(meta$condition == cond & meta$genotype == "KO")
+  mean_wt <- rowMeans(tf_dev[, idx_wt, drop = FALSE], na.rm = TRUE)
+  mean_ko <- rowMeans(tf_dev[, idx_ko, drop = FALSE], na.rm = TRUE)
+  data.frame(
+    TF        = rownames(tf_dev),
+    delta     = mean_ko - mean_wt,
+    condition = cond,
+    stringsAsFactors = FALSE
+  )
+}
+
+delta_list <- lapply(c("L", "LG", "LA21", "LA21G"), make_delta)
+delta_all  <- do.call(rbind, delta_list)
+delta_all$condition <- factor(delta_all$condition, levels = c("L", "LG", "LA21", "LA21G"))
+
+topN <- 30
+plots_bar <- lapply(c("L", "LG", "LA21", "LA21G"), function(cond) {
+  df      <- delta_all[delta_all$condition == cond, ]
+  df      <- df[order(df$delta, decreasing = TRUE), ]
+  plot_df <- rbind(head(df, topN), tail(df, topN))
+  plot_df$direction <- ifelse(plot_df$delta > 0, "Higher in KO", "Lower in KO")
+  plot_df$TF <- factor(plot_df$TF, levels = plot_df$TF[order(plot_df$delta)])
+  ggplot(plot_df, aes(x = TF, y = delta, fill = direction)) +
+    geom_col() + coord_flip() + theme_bw(base_size = 6) +
+    labs(title = paste0("KO vs WT: ", cond),
+         x = "TF", y = "Δ chromVAR z-score (KO - WT)")
+})
+
+for (p in plots_bar) print(p)
+```
+
+```{r faceted_volcano, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Faceted volcano: KO vs WT, all 4 conditions ----
+make_volc <- function(cond) {
+  idx_wt <- which(meta$condition == cond & meta$genotype == "WT")
+  idx_ko <- which(meta$condition == cond & meta$genotype == "KO")
+  mean_wt <- rowMeans(tf_dev[, idx_wt, drop = FALSE], na.rm = TRUE)
+  mean_ko <- rowMeans(tf_dev[, idx_ko, drop = FALSE], na.rm = TRUE)
+  pvals   <- apply(tf_dev, 1, function(row) t.test(row[idx_ko], row[idx_wt])$p.value)
+  data.frame(
+    TF             = rownames(tf_dev),
+    delta          = mean_ko - mean_wt,
+    pval           = pvals,
+    neg_log10_pval = -log10(pvals),
+    comparison     = paste0("KO vs WT: ", cond),
+    stringsAsFactors = FALSE
+  )
+}
+
+volc_all <- do.call(rbind, lapply(c("L", "LG", "LA21", "LA21G"), make_volc))
+volc_all$comparison <- factor(volc_all$comparison,
+  levels = paste0("KO vs WT: ", c("L", "LG", "LA21", "LA21G")))
+
+delta_cut <- 1
+pval_cut  <- 0.05
+
+volc_all$sig <- ifelse(
+  abs(volc_all$delta) > delta_cut & volc_all$pval < pval_cut,
+  ifelse(volc_all$delta > 0, "Up in KO", "Down in KO"), "NS"
+)
+
+p_volc <- ggplot(volc_all, aes(x = delta, y = neg_log10_pval)) +
+  geom_point(aes(color = sig), size = 1.2, alpha = 0.5) +
+  scale_color_manual(values = c("Up in KO" = "#D7191C", "Down in KO" = "#2C7BB6", "NS" = "grey80")) +
+  geom_hline(yintercept = -log10(pval_cut), linetype = "dashed", color = "grey40") +
+  geom_vline(xintercept = c(-delta_cut, delta_cut), linetype = "dashed", color = "grey40") +
+  ggrepel::geom_text_repel(
+    data = subset(volc_all, sig != "NS"),
+    aes(label = TF, color = sig), size = 2.2,
+    max.overlaps = 20, segment.size = 0.2, segment.alpha = 0.3,
+    show.legend = FALSE
+  ) +
+  facet_wrap(~ comparison, scales = "free_x") +
+  theme_bw(base_size = 12) +
+  theme(
+    legend.position  = "top",
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(fill = "grey95"),
+    strip.text       = element_text(face = "bold")
+  ) +
+  labs(
+    x     = "Δ chromVAR z-score (KO - WT)",
+    y     = expression(-log[10]~"(p-value)"),
+    color = NULL
+  )
+
+p_volc
+ggsave(file.path(out_path, "volcano_faceted_KOvsWT_4conditions.pdf"), p_volc, width = 20, height = 8)
+```
+
+```{r concordance, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Concordance: KO vs WT in LA21 (x) vs KO vs WT in LA21g (y) ----
+make_conc <- function(cond) {
+  idx_wt  <- which(meta$condition == cond & meta$genotype == "WT")
+  idx_ko  <- which(meta$condition == cond & meta$genotype == "KO")
+  mean_wt <- rowMeans(tf_dev[, idx_wt, drop = FALSE], na.rm = TRUE)
+  mean_ko <- rowMeans(tf_dev[, idx_ko, drop = FALSE], na.rm = TRUE)
+  pvals   <- apply(tf_dev, 1, function(row) t.test(row[idx_ko], row[idx_wt])$p.value)
+  list(delta = mean_ko - mean_wt, pval = pvals)
+}
+
+res_L     <- make_conc("L")
+res_Lg    <- make_conc("LG")
+res_LA21  <- make_conc("LA21")
+res_LA21g <- make_conc("LA21G")
+
+conc_df <- data.frame(
+  TF          = rownames(tf_dev),
+  delta_L     = res_L$delta,
+  delta_Lg    = res_Lg$delta,
+  delta_LA21  = res_LA21$delta,
+  delta_LA21g = res_LA21g$delta,
+  pval_L      = res_L$pval,
+  pval_Lg     = res_Lg$pval,
+  pval_LA21   = res_LA21$pval,
+  pval_LA21g  = res_LA21g$pval,
+  stringsAsFactors = FALSE
+)
+
+## LA21 vs LA21g concordance
+conc_df$quad <- with(conc_df, ifelse(
+  pval_LA21 < 0.05 & pval_LA21g < 0.05, "Both significant",
+  ifelse(pval_LA21  < 0.05, "LA21 only",
+  ifelse(pval_LA21g < 0.05, "LA21g only", "Neither"))
+))
+
+p_conc <- ggplot(conc_df, aes(x = delta_LA21, y = delta_LA21g)) +
+  geom_hline(yintercept = 0, color = "grey60") +
+  geom_vline(xintercept = 0, color = "grey60") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey40") +
+  geom_point(aes(color = quad), size = 1.8, alpha = 0.6) +
+  scale_color_manual(values = c("Both significant" = "#5778A4",
+                                "LA21 only"        = "#6A9F58",
+                                "LA21g only"       = "#E49444",
+                                "Neither"          = "#D4D4D4")) +
+  ggrepel::geom_text_repel(
+    data = subset(conc_df, quad != "Neither"),
+    aes(label = TF, color = quad), size = 2.5,
+    max.overlaps = 25, min.segment.length = 0,
+    segment.size = 0.2, segment.alpha = 0.4,
+    show.legend = FALSE
+  ) +
+  theme_bw(base_size = 13) +
+  theme(legend.position = "top") +
+  labs(
+    title = "Concordance: KO vs WT (LA21 vs LA21g)",
+    x     = "Δz KO vs WT in LA21",
+    y     = "Δz KO vs WT in LA21g",
+    color = NULL
+  )
+
+p_conc
+ggsave(file.path(out_path, "concordance_LA21_vs_LA21g_KOvsWT.pdf"), p_conc, width = 10, height = 9)
+```
+
+```{r export, include=TRUE, echo=TRUE, message=FALSE}
+## ---- Concordance: L vs LG ----
+conc_LvsLG <- data.frame(
+  TF         = rownames(tf_dev),
+  delta_L    = res_L$delta,
+  delta_LG   = res_Lg$delta,
+  pval_L     = res_L$pval,
+  pval_LG    = res_Lg$pval,
+  stringsAsFactors = FALSE
+)
+
+conc_LvsLG$quad <- with(conc_LvsLG, ifelse(
+  pval_L < 0.05 & pval_LG < 0.05, "Both significant",
+  ifelse(pval_L  < 0.05, "L only",
+  ifelse(pval_LG < 0.05, "LG only", "Neither"))
+))
+
+p_LvsLG <- ggplot(conc_LvsLG, aes(x = delta_L, y = delta_LG)) +
+  geom_hline(yintercept = 0, color = "grey60") +
+  geom_vline(xintercept = 0, color = "grey60") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey40") +
+  geom_point(aes(color = quad), size = 1.8, alpha = 0.6) +
+  scale_color_manual(values = c("Both significant" = "#5778A4",
+                                "L only"           = "#6A9F58",
+                                "LG only"          = "#E49444",
+                                "Neither"          = "#D4D4D4")) +
+  ggrepel::geom_text_repel(
+    data = subset(conc_LvsLG, quad != "Neither"),
+    aes(label = TF, color = quad), size = 2.5,
+    max.overlaps = 25, min.segment.length = 0,
+    segment.size = 0.2, segment.alpha = 0.4,
+    show.legend = FALSE
+  ) +
+  theme_bw(base_size = 13) +
+  theme(legend.position = "top") +
+  labs(
+    title = "Concordance: KO vs WT (L vs LG)",
+    x     = "Δz KO vs WT in L",
+    y     = "Δz KO vs WT in LG",
+    color = NULL
+  )
+
+p_LvsLG
+ggsave(file.path(out_path, "concordance_L_vs_LG_KOvsWT.pdf"), p_LvsLG, width = 10, height = 9)
+
+## ---- Concordance: LA21 vs LA21G ----
+conc_df$quad <- with(conc_df, ifelse(
+  pval_LA21 < 0.05 & pval_LA21g < 0.05, "Both significant",
+  ifelse(pval_LA21  < 0.05, "LA21 only",
+  ifelse(pval_LA21g < 0.05, "LA21G only", "Neither"))
+))
+
+p_LA21vsLA21G <- ggplot(conc_df, aes(x = delta_LA21, y = delta_LA21g)) +
+  geom_hline(yintercept = 0, color = "grey60") +
+  geom_vline(xintercept = 0, color = "grey60") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey40") +
+  geom_point(aes(color = quad), size = 1.8, alpha = 0.6) +
+  scale_color_manual(values = c("Both significant" = "#5778A4",
+                                "LA21 only"        = "#6A9F58",
+                                "LA21G only"       = "#E49444",
+                                "Neither"          = "#D4D4D4")) +
+  ggrepel::geom_text_repel(
+    data = subset(conc_df, quad != "Neither"),
+    aes(label = TF, color = quad), size = 2.5,
+    max.overlaps = 25, min.segment.length = 0,
+    segment.size = 0.2, segment.alpha = 0.4,
+    show.legend = FALSE
+  ) +
+  theme_bw(base_size = 13) +
+  theme(legend.position = "top") +
+  labs(
+    title = "Concordance: KO vs WT (LA21 vs LA21G)",
+    x     = "Δz KO vs WT in LA21",
+    y     = "Δz KO vs WT in LA21G",
+    color = NULL
+  )
+
+p_LA21vsLA21G
+ggsave(file.path(out_path, "concordance_LA21_vs_LA21G_KOvsWT.pdf"), p_LA21vsLA21G, width = 10, height = 9)
+
+
+## ---- Prism concordance format ----
+make_prism_wide <- function(df, x_col, y_col, sig_col, cats, label_col = "TF") {
+  n <- nrow(df)
+  out <- data.frame(TF = df[[label_col]], X = df[[x_col]])
+  for (cat in cats) {
+    col <- rep(NA_real_, n)
+    col[df[[sig_col]] == cat] <- df[[y_col]][df[[sig_col]] == cat]
+    out[[cat]] <- col
+  }
+  out
+}
+
+## L vs LG
+prism_LvsLG <- make_prism_wide(
+  conc_LvsLG, "delta_L", "delta_LG", "quad",
+  cats = c("Both significant", "L only", "LG only", "Neither")
+)
+write.csv(prism_LvsLG,
+          file = file.path(out_path, "prism_concordance_L_vs_LG.csv"),
+          row.names = FALSE, na = "")
+
+## LA21 vs LA21G
+prism_LA21 <- make_prism_wide(
+  conc_df, "delta_LA21", "delta_LA21g", "quad",
+  cats = c("Both significant", "LA21 only", "LA21G only", "Neither")
+)
+write.csv(prism_LA21,
+          file = file.path(out_path, "prism_concordance_LA21_vs_LA21G.csv"),
+          row.names = FALSE, na = "")
+
+message("Prism CSVs saved to: ", out_path)
+```
+
+```{r session, include=TRUE, echo=TRUE, message=FALSE}
+sessionInfo()
+```

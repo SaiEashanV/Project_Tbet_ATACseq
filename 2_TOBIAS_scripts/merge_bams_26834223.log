@@ -1,0 +1,28 @@
+Starting BAM merge
+Sun May 10 00:18:39 MDT 2026
+Merging L_WT
+Indexing L_WT
+Done: L_WT
+Merging L_KO
+Indexing L_KO
+Done: L_KO
+Merging LG_WT
+Indexing LG_WT
+Done: LG_WT
+Merging LG_KO
+Indexing LG_KO
+Done: LG_KO
+Merging LA21_WT
+Indexing LA21_WT
+Done: LA21_WT
+Merging LA21_KO
+Indexing LA21_KO
+Done: LA21_KO
+Merging LA21G_WT
+Indexing LA21G_WT
+Done: LA21G_WT
+Merging LA21G_KO
+Indexing LA21G_KO
+Done: LA21G_KO
+All done
+Sun May 10 00:39:34 MDT 2026
